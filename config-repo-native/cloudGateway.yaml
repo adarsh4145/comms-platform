@@ -1,0 +1,23 @@
+gateway.custom-note: Gateway config loaded from local disk
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,gateway
+    env:
+      show-values: ALWAYS
+  endpoint:
+    gateway:
+#      access: unrestricted
+      enabled: true
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id : true

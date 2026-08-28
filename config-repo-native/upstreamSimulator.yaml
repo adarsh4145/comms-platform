@@ -1,0 +1,7 @@
+dummy.property: nice from local native upstreamSimulator
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env

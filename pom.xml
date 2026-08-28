@@ -48,4 +48,35 @@
     <module>upstreamSimulator</module>
   </modules>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>3.10.0</version> <!-- Use the latest version -->
+          <configuration>
+            <java>
+              <!-- Use an external formatter file located at the project root -->
+              <googleJavaFormat/>
+              <googleJavaFormat>
+                <version>1.36.1</version>
+                <style>GOOGLE</style>
+              </googleJavaFormat>
+              <removeUnusedImports/>
+            </java>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+
+  </build>
+
 </project>

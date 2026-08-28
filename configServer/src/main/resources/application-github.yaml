@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/adarsh4145/comms-platform.git
+          search-paths: config-repo-github
+          default-label: main
+          clone-on-start: true
+          #username: ${GIT_USERNAME}
+          #password: ${GIT_TOKEN}

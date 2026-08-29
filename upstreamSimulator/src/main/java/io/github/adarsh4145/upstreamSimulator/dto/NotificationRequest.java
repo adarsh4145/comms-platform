@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class NotificationRequest {
-    private String recipient;
-    private String message;
-    private String priority;
+  private String recipient;
+  private String message;
+  private String priority;
 }

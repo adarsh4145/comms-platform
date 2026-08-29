@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class SimulationController {
 
-    @PostMapping("/notification")
-    public ResponseEntity<Object> simulateNotification(@RequestBody NotificationRequest notificationRequest){
-      log.info("recipient: {}, message: {}, priority: {}",notificationRequest.getRecipient()
-              ,notificationRequest.getMessage(),notificationRequest.getPriority());
-      return ResponseEntity.accepted().build();
-    }
+  @PostMapping("/notification")
+  public ResponseEntity<Object> simulateNotification(
+      @RequestBody NotificationRequest notificationRequest) {
+    log.info(
+        "recipient: {}, message: {}, priority: {}",
+        notificationRequest.getRecipient(),
+        notificationRequest.getMessage(),
+        notificationRequest.getPriority());
+    return ResponseEntity.accepted().build();
+  }
 }

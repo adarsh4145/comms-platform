@@ -1,0 +1,13 @@
+need to add replica set to support multi-document ACID transactions
+in docker compose : cherck docker compose mongo db section
+
+clean mongo data folder, if created earlier, then start mongo
+then do exec
+or
+ run command:
+
+docker exec -it comms-mongo mongosh "mongodb://admin:admin@localhost:27017/?authSource=admin"
+
+then run:
+
+rs.initiate({_id: "rs0", members: [{_id: 0, host: "comms-mongo:27017"}]})

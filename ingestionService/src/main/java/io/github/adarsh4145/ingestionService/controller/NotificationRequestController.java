@@ -2,8 +2,7 @@ package io.github.adarsh4145.ingestionService.controller;
 
 import io.github.adarsh4145.ingestionService.domain.NotificationRequest;
 import io.github.adarsh4145.ingestionService.pojo.CreateNotificationRequest;
-import io.github.adarsh4145.ingestionService.repository.NotificationRequestRepository;
-import java.time.Instant;
+import io.github.adarsh4145.ingestionService.service.NotificationRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,21 +15,12 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class NotificationRequestController {
 
-  private final NotificationRequestRepository repository;
+  private final NotificationRequestService notificationRequestService;
 
   @PostMapping("/notifications")
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<NotificationRequest> createNotification(
       @RequestBody CreateNotificationRequest request) {
-    NotificationRequest toSave =
-        NotificationRequest.builder()
-            .recipient(request.recipient())
-            .message(request.message())
-            .priority(request.priority())
-            .status(NotificationRequest.Status.RECEIVED)
-            .createdAt(Instant.now())
-            .build();
-
-    return repository.save(toSave);
+    return notificationRequestService.createNotification(request);
   }
 }

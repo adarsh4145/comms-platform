@@ -20,8 +20,18 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+    entrypoint: >
+      bash -c '
+        if [ ! -f /keyfile/mongo-keyfile ]; then
+          openssl rand -base64 756 > /keyfile/mongo-keyfile
+          chmod 400 /keyfile/mongo-keyfile
+          chown mongodb:mongodb /keyfile/mongo-keyfile
+        fi
+        exec docker-entrypoint.sh mongod --replSet rs0 --bind_ip_all --keyFile /keyfile/mongo-keyfile
+      '
     volumes:
       - ./data/mongo_data:/data/db
+      - mongo_keyfile:/keyfile
 
   # mongo-express:
   #   image: mongo-express:latest
@@ -116,7 +126,7 @@ services:
       ENGINE_postgres: postgres@dbgate-plugin-postgres
 
       LABEL_mongo: Mongo (comms-platform)
-      URL_mongo: mongodb://admin:admin@mongo:27017
+      URL_mongo: mongodb://admin:admin@mongo:27017/?replicaSet=rs0
       ENGINE_mongo: mongo@dbgate-plugin-mongo
 
       LABEL_redis: Redis (comms-platform)
@@ -181,3 +191,6 @@ services:
     volumes:
       - ./data/mailpit_data:/data
 
+
+volumes:
+  mongo_keyfile:

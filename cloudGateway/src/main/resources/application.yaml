@@ -4,6 +4,7 @@ spring:
   config:
     import: configserver:http://localhost:8888
 
+
 eureka:
   client:
     service-url:
@@ -12,3 +13,4 @@ eureka:
     register-with-eureka: true
   instance:
     prefer-ip-address: true
+

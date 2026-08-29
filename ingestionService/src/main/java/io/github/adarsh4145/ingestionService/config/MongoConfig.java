@@ -19,25 +19,25 @@ import org.springframework.data.mongodb.core.SimpleReactiveMongoDatabaseFactory;
 @Slf4j
 public class MongoConfig {
 
-    private final Environment environment;
+  private final Environment environment;
 
-    public MongoConfig(Environment environment) {
-        this.environment = environment;
-        log.info("Mongo URL Loaded: {}",environment.getRequiredProperty("spring.data.mongodb.uri"));
-    }
+  public MongoConfig(Environment environment) {
+    this.environment = environment;
+    log.info("Mongo URL Loaded: {}", environment.getRequiredProperty("spring.data.mongodb.uri"));
+  }
 
-    @Bean
-    public MongoClient reactiveMongoClient() {
-        String uri = environment.getRequiredProperty("spring.data.mongodb.uri");
-        return MongoClients.create(new ConnectionString(uri));
-    }
+  @Bean
+  public MongoClient reactiveMongoClient() {
+    String uri = environment.getRequiredProperty("spring.data.mongodb.uri");
+    return MongoClients.create(new ConnectionString(uri));
+  }
 
-    @Bean
-    public ReactiveMongoTemplate reactiveMongoTemplate(MongoClient reactiveMongoClient) {
-        String uri = environment.getRequiredProperty("spring.data.mongodb.uri");
-        ConnectionString connectionString = new ConnectionString(uri);
-        return new ReactiveMongoTemplate(
-                new SimpleReactiveMongoDatabaseFactory(reactiveMongoClient, connectionString.getDatabase())
-        );
-    }
+  @Bean
+  public ReactiveMongoTemplate reactiveMongoTemplate(MongoClient reactiveMongoClient) {
+    String uri = environment.getRequiredProperty("spring.data.mongodb.uri");
+    ConnectionString connectionString = new ConnectionString(uri);
+    return new ReactiveMongoTemplate(
+        new SimpleReactiveMongoDatabaseFactory(
+            reactiveMongoClient, connectionString.getDatabase()));
+  }
 }

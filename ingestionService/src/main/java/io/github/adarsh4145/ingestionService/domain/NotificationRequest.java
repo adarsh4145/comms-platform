@@ -1,13 +1,12 @@
 package io.github.adarsh4145.ingestionService.domain;
 
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.Instant;
 
 @Data
 @Builder
@@ -16,24 +15,29 @@ import java.time.Instant;
 @Document(collection = "notification_requests")
 public class NotificationRequest {
 
-    @Id
-    private String id;
+  @Id private String id;
 
-    private String recipient;
+  private String recipient;
 
-    private String message;
+  private String message;
 
-    private Priority priority;
+  private Priority priority;
 
-    private Status status;
+  private Status status;
 
-    private Instant createdAt;
+  private Instant createdAt;
 
-    public enum Priority {
-        CRITICAL, HIGH, MEDIUM, LOW
-    }
+  public enum Priority {
+    CRITICAL,
+    HIGH,
+    MEDIUM,
+    LOW
+  }
 
-    public enum Status {
-        RECEIVED, PROCESSING, SENT, FAILED
-    }
+  public enum Status {
+    RECEIVED,
+    PROCESSING,
+    SENT,
+    FAILED
+  }
 }

@@ -21,4 +21,22 @@ spring:
           discovery:
             locator:
               enabled: true
-              lower-case-service-id : true
+              lower-case-service-id: true
+          default-filters:
+            - name: CacheRequestBody
+              args:
+                bodyClass: java.lang.String
+            - name: Retry
+              args:
+                retries: 5
+                series: SERVER_ERROR
+                exceptions:
+                  - java.io.IOException
+                  - java.net.ConnectException
+                  - java.util.concurrent.TimeoutException
+                methods: GET,POST,PUT,DELETE
+                backoff:
+                  firstBackoff: 6s
+                  maxBackoff: 6s
+                  factor: 1
+                  basedOnPreviousValue: false

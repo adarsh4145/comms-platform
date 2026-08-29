@@ -2,8 +2,16 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin
+#      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin
+        #      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin
+      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin&directConnection=true
 
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
 
 #spring.data.mongodb.host=localhost
 #spring.data.mongodb.port=27017

@@ -2,5 +2,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin
-
+#      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin
+       uri: mongodb://admin:admin@comms-mongo:27017/comms_platform?authSource=admin&replicaSet=rs0

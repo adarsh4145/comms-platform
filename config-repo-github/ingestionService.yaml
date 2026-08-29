@@ -4,3 +4,14 @@ spring:
     mongodb:
 #      uri: mongodb://admin:admin@localhost:27017/comms_platform?authSource=admin
        uri: mongodb://admin:admin@comms-mongo:27017/comms_platform?authSource=admin&replicaSet=rs0
+
+
+    redis:
+      host: localhost
+      port: 6379
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092

@@ -5,10 +5,7 @@ import io.github.adarsh4145.ingestionService.pojo.CreateNotificationRequest;
 import io.github.adarsh4145.ingestionService.service.NotificationRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -20,7 +17,8 @@ public class NotificationRequestController {
   @PostMapping("/notifications")
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<NotificationRequest> createNotification(
-      @RequestBody CreateNotificationRequest request) {
-    return notificationRequestService.createNotification(request);
+          @RequestHeader("Idempotency-Key") String idempotencyKey,
+          @RequestBody CreateNotificationRequest request) {
+    return notificationRequestService.createNotification(idempotencyKey, request);
   }
 }

@@ -1,6 +1,7 @@
-package io.github.adarsh4145.ingestionService.kafka;
+package io.github.adarsh4145.ingestionService.service;
 
 import io.github.adarsh4145.ingestionService.domain.OutboxEvent;
+import io.github.adarsh4145.ingestionService.kafka.OutboxEventValidator;
 import io.github.adarsh4145.ingestionService.kafka.publisher.NotificationEventPublisher;
 import io.github.adarsh4145.ingestionService.repository.OutboxEventRepository;
 import lombok.RequiredArgsConstructor;

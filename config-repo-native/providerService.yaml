@@ -1,0 +1,24 @@
+spring:
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env
+
+provider:
+  simulation:
+    failure-rate: 0.2
+    min-delay-ms: 200
+    max-delay-ms: 2000
+  sms:
+    gateway-url: http://localhost:8000/sms/twilio

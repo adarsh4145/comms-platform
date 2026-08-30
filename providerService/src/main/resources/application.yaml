@@ -1,3 +1,29 @@
 spring:
   application:
     name: providerService
+
+  config:
+    import: configserver:http://localhost:8888
+
+server:
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+provider:
+  simulation:
+    failure-rate: 0.2
+    min-delay-ms: 200
+    max-delay-ms: 2000
+  sms:
+    gateway-url: http://localhost:8000/sms/twilio
+    default-sender: "+10000000000"
+  email:
+    default-sender: "noreply@comms-platform.local"

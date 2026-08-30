@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    function:
+      definition: dispatchCritical;dispatchHigh;dispatchMedium;dispatchLow
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        dispatchCritical-in-0:
+          destination: notification.critical
+          group: dispatch-service-group
+          consumer:
+            concurrency: 4
+        dispatchHigh-in-0:
+          destination: notification.high
+          group: dispatch-service-group
+          consumer:
+            concurrency: 3
+        dispatchMedium-in-0:
+          destination: notification.medium
+          group: dispatch-service-group
+          consumer:
+            concurrency: 2
+        dispatchLow-in-0:
+          destination: notification.low
+          group: dispatch-service-group
+          consumer:
+            concurrency: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env

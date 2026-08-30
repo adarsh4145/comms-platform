@@ -1,0 +1,30 @@
+info:
+  name: sms-buggregator-test
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: http://localhost:8085/provider/send
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |2-
+      
+       {
+        "channel": "SMS",
+        "recipient": "+5678901234",
+           "sender": "+2443546646",
+        "subject": null,
+        "message": "Hello from providerService SMS test"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

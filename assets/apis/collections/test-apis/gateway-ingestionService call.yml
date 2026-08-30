@@ -4,8 +4,19 @@ info:
   seq: 5
 
 http:
-  method: GET
-  url: ""
+  method: POST
+  url: http://localhost:8080/upstreamsimulator/simulate/notification
+  headers:
+    - name: Idempotency-Key
+      value: key-123
+  body:
+    type: json
+    data: |-
+      {
+        "recipient": "test@example.com",
+        "message": "hello",
+        "priority": "HIGH"
+      }
   auth: inherit
 
 settings:

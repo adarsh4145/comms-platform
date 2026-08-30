@@ -1,3 +1,6 @@
+https://claude.ai/chat/27fcdc18-d64a-4b62-a083-6addc649bc8e
+
+##### for docker mongo setup
 need to add replica set to support multi-document ACID transactions
 in docker compose : cherck docker compose mongo db section
 
@@ -11,3 +14,25 @@ docker exec -it comms-mongo mongosh "mongodb://admin:admin@localhost:27017/?auth
 then run:
 
 rs.initiate({_id: "rs0", members: [{_id: 0, host: "comms-mongo:27017"}]})
+
+
+######
+Buggregator - mock mail+sms server
+
+to test mail from powershell:
+PS C:\WINDOWS\system32> Send-MailMessage -SmtpServer localhost -Port 1025 -From "test@example.com" -To "user@example.com" -Subject "Test Email" -Body "Hello from PowerShell test!"
+
+``````
+to test sms,
+curl --request POST \
+  --url http://localhost:8000/sms/twilio \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "MessageSid": "SM123",
+  "From": "+1234567890",
+  "To": "+5678901234",
+  "Body": "Hello from Bruno test!"
+}'
+
+
+

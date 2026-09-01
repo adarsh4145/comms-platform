@@ -1,0 +1,3 @@
+# Everything except the built jars - the image is runtime-only.
+*
+!*/target/*.jar

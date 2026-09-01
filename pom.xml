@@ -10,6 +10,7 @@
   <properties>
 
     <revision>0.0.1-SNAPSHOT</revision>
+    <spring-boot.version>4.0.8</spring-boot.version>
     <core.version>0.0.1-SNAPSHOT</core.version>
     <java.version>25</java.version>
     <spring-cloud.version>2025.1.3</spring-cloud.version>
@@ -56,14 +57,21 @@
   <build>
     <pluginManagement>
       <plugins>
+        <!-- pinned: parent is not spring-boot-starter-parent, so an unpinned plugin resolves
+             to whatever the LATEST release is - which was picking up a 4.2.0-M1 milestone -->
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+        </plugin>
         <plugin>
           <groupId>com.diffplug.spotless</groupId>
           <artifactId>spotless-maven-plugin</artifactId>
-          <version>3.10.0</version> <!-- Use the latest version -->
+          <version>3.10.0</version>
           <configuration>
             <java>
-              <!-- Use an external formatter file located at the project root -->
-              <googleJavaFormat/>
+              <!-- There used to be a bare <googleJavaFormat/> above this one. Two entries meant
+                   the pinned version and style were not reliably the ones applied. -->
               <googleJavaFormat>
                 <version>1.36.1</version>
                 <style>GOOGLE</style>
@@ -79,6 +87,18 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
+        <!-- Declared with no execution before, so it only ran when invoked by hand - which is
+             why part of the tree is google-java-format and part of it is not. Bound to apply
+             (not check) so the build normalises formatting instead of failing on it. -->
+        <executions>
+          <execution>
+            <id>spotless-apply</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>apply</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
 

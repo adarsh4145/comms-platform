@@ -1,1 +1,32 @@
 greeting.message: Hello from local/ native
+
+spring:
+  reactor:
+    # Restores tracing/MDC ThreadLocals across reactive operator boundaries.
+    # Without this the trace context is lost the moment work hops threads.
+    context-propagation: auto
+
+management:
+  tracing:
+    enabled: true
+    propagation:
+      type: w3c
+    sampling:
+      # 1.0 for local development. Dial this down before anything resembling load.
+      probability: 1.0
+  opentelemetry:
+    resource-attributes:
+      deployment.environment: local
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/traces
+          transport: http
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,metrics
+
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "

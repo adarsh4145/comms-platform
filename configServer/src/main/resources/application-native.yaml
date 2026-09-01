@@ -3,4 +3,7 @@ spring:
     config:
       server:
         native:
-          search-locations: file:///D:/projects/comms-platform/config-repo-native
+          # Relative on purpose - an absolute "file:///D:/projects/..." only worked on one
+          # machine. Both entries are tried, so this resolves whether the process is started
+          # from the repo root (java -jar) or from the module directory (IntelliJ default).
+          search-locations: ${CONFIG_REPO_NATIVE_PATH:file:./config-repo-native,file:../config-repo-native}

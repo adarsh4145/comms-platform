@@ -1,14 +1,24 @@
 info:
-  name: ingestionService notification
+  name: ingestionService notification (direct)
   type: http
   seq: 4
 
 http:
   method: POST
-  url: http://localhost:8080/upstreamsimulator/simulate/notification
+  url: http://localhost:8083/notifications
+  headers:
+    - name: Idempotency-Key
+      value: bruno-direct-001
   body:
     type: json
-    data: '{ "recipient": "test@example.com", "message": "hello", "priority": "HIGH" }'
+    data: |-
+      {
+        "recipient": "test@example.com",
+        "message": "hello",
+        "priority": "HIGH",
+        "channel": "EMAIL",
+        "from": "noreply@comms-platform.local"
+      }
   auth: inherit
 
 settings:

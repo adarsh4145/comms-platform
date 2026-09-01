@@ -3,12 +3,10 @@ spring:
     name: eurekaServer
 
 server:
-  port: 8761
-
+  port: ${SERVER_PORT:8761}
 
 eureka:
   client:
+    # Standalone registry: it must not try to register with, or fetch from, itself.
     register-with-eureka: false
     fetch-registry: false
-register-with-eureka: false
-fetch-registry: false

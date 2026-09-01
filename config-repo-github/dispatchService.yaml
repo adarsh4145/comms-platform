@@ -1,0 +1,69 @@
+# Mirrors config-repo-native/dispatchService.yaml, but addressed for containers.
+# This file was empty, which meant dispatchService had no function definition and no
+# bindings at all under the github profile - it would have consumed nothing.
+
+spring:
+  cloud:
+    function:
+      definition: dispatchCritical;dispatchHigh;dispatchMedium;dispatchLow
+    stream:
+      kafka:
+        binder:
+          # emits Kafka producer/consumer spans and injects traceparent into record headers
+          enable-observation: true
+          # Provision topics deterministically through the binder AdminClient instead of
+          # leaning on the broker auto-create flag. 4 partitions so the CRITICAL consumer
+          # (concurrency 4) can actually use all of its threads.
+          auto-create-topics: true
+          min-partition-count: 4
+          replication-factor: 1
+          # dispatchService now also produces delivery-status events with a String key.
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+          brokers: ${KAFKA_BROKERS:comms-kafka:29092}
+      bindings:
+        dispatchCritical-in-0:
+          destination: notification.critical
+          group: dispatch-service-group
+          consumer:
+            concurrency: 4
+            # Retry lives in NotificationDispatchService so it can decide when to dead-letter.
+            max-attempts: 1
+        dispatchHigh-in-0:
+          destination: notification.high
+          group: dispatch-service-group
+          consumer:
+            concurrency: 3
+            max-attempts: 1
+        dispatchMedium-in-0:
+          destination: notification.medium
+          group: dispatch-service-group
+          consumer:
+            concurrency: 2
+            max-attempts: 1
+        dispatchLow-in-0:
+          destination: notification.low
+          group: dispatch-service-group
+          consumer:
+            concurrency: 1
+            max-attempts: 1
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://comms-postgres:5432/comms_platform}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+dispatch:
+  delivery:
+    max-attempts: ${DISPATCH_MAX_ATTEMPTS:3}
+    retry-backoff-ms: ${DISPATCH_RETRY_BACKOFF_MS:2000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env

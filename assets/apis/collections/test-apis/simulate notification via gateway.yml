@@ -8,7 +8,14 @@ http:
   url: http://localhost:8080/upstreamsimulator/simulate/notification
   body:
     type: json
-    data: '{ "recipient": "test@example.com", "message": "hello", "priority": "HIGH" }'
+    data: |-
+      {
+        "recipient": "test@example.com",
+        "message": "hello",
+        "priority": "HIGH",
+        "channel": "SMS",
+        "from": "+10000000000"
+      }
   auth: inherit
 
 settings:

@@ -284,3 +284,109 @@ Given you already have Priority as a first-class field carried through the whole
 https://claude.ai/chat/27fcdc18-d64a-4b62-a083-6addc649bc8e
 
 
+
+---
+
+## 4. Distributed tracing
+
+One request from `upstreamSimulator` produces **one trace** spanning all five services, viewable in Grafana.
+
+### Stack
+
+`infra/docker-compose.yml` runs `grafana/otel-lgtm` (`comms-lgtm`) — Grafana + Tempo (traces) + Loki (logs) + Prometheus (metrics) in one container.
+
+| Endpoint | URL |
+|---|---|
+| Grafana UI | http://localhost:3000 (anonymous admin) |
+| OTLP HTTP (what the services push to) | http://localhost:4318 |
+| OTLP gRPC | http://localhost:4317 |
+
+Traces are in **Explore → Tempo**. Search by `Service Name = upstreamSimulator`, or paste a trace id straight from a log line.
+
+### How it is wired
+
+- Each service in the request path depends on `spring-boot-starter-opentelemetry` — Micrometer Tracing's OTel bridge plus the OTLP exporter.
+- Shared config lives in `config-repo-native/application.yaml` (and its `config-repo-github` twin), so it applies to every config-client service at once: W3C propagation, 100% sampling, the OTLP endpoint, `spring.reactor.context-propagation: auto`, and the `logging.pattern.correlation` that puts `[service,traceId,spanId]` in every log line.
+- Kafka spans come from `spring.cloud.stream.kafka.binder.enable-observation: true`, which instruments both the producer and the consumer and injects `traceparent` into record headers.
+- Feign needs `io.github.openfeign:feign-micrometer` on the classpath — without it Spring Cloud OpenFeign silently skips its observation capability and the trace stops at dispatchService.
+- Outgoing `WebClient` calls must be built from Boot's auto-configured `WebClient.Builder` (from `spring-boot-starter-webclient`). A hand-rolled `WebClient.builder()` has no observation customizer and breaks the trace with no error.
+
+### The outbox gap, and how it is bridged
+
+The transactional outbox is asynchronous: the span that writes the row has ended long before `OutboxRelay` picks it up 5 seconds later on a scheduler thread. Left alone, the Kafka publish would start a brand-new trace.
+
+So `NotificationRequestService` captures the live propagation headers into `OutboxEvent.traceContext` at write time, and `OutboxRelay` re-opens them (`TracePropagation.continueTrace`, in `core`) around the publish. The producer span — and everything downstream of it — then hangs off the original HTTP request.
+
+### What a full trace looks like
+
+```
+upstreamSimulator  http post /simulate/notification
+  └─ http post                             (WebClient → gateway)
+cloudGateway       http post → HTTP POST   (routed to lb://INGESTIONSERVICE)
+ingestionService   http post /notifications
+  ├─ get / set                             (Redis idempotency)
+  ├─ notification_requests.insert          (Mongo)
+  ├─ outbox_events.update                  (Mongo)
+  └─ outbox.relay.publish                  (re-opened trace, +5s)
+       └─ streamBridge process → notification.high send
+dispatchService    notification.high process → dispatchHigh process
+  └─ HTTP POST                             (Feign → providerService)
+providerService    http post /provider/send
+  └─ provider.send                         (SMTP → Buggregator)
+```
+
+`JavaMailSender` has no built-in instrumentation, so `provider.send` is an explicit `Observation` in `ProviderSimulationService`. Mongo spans exist only because `MongoConfig` installs `MongoObservationCommandListener` by hand — the client is built manually there, so Boot's customizers never run.
+
+### Sampling
+
+`management.tracing.sampling.probability: 1.0` is a local-development setting. Lower it before running anything resembling load.
+
+---
+
+## 5. Delivery lifecycle and the dead-letter queue
+
+### Notification lifecycle
+
+A `NotificationRequest` used to be written as `RECEIVED` and stay there forever — nothing ever told ingestionService what happened downstream. It now moves through:
+
+| Status | Set by | When |
+|---|---|---|
+| `RECEIVED` | ingestionService | Request persisted with its outbox row, in one transaction |
+| `PROCESSING` | ingestionService (`OutboxRelay`) | Event successfully published to Kafka |
+| `SENT` / `FAILED` | ingestionService (`DeliveryStatusConsumer`) | dispatchService reported the terminal outcome |
+
+dispatchService publishes a `NotificationDeliveryEvent` to **`notification.delivery.status`** after every terminal outcome; ingestionService consumes it (`notificationDeliveryStatus`) and applies an atomic `updateFirst`, also recording `providerMessageId`, `deliveryAttempts` and `deliveryError`. Because the publish happens inside the consumer observation, the status update stays in the **same trace** as the delivery it describes.
+
+### Dead-letter queue (Postgres)
+
+`dispatch.delivery.max-attempts` (default 3, 2s backoff) retries in place on the consumer thread — deliberately, so per-partition ordering holds. `success=false` from providerService now counts as a failure; it used to be logged and forgotten.
+
+When the attempts are exhausted the event lands in the `dead_letter_event` table with the verbatim payload, the **trace id**, the failure reason and the stack trace. An unparseable payload skips the retries entirely (`UNPARSEABLE_PAYLOAD`) — a poison pill does not get better on the fourth attempt.
+
+| Endpoint (dispatchService, `:8084`) | Purpose |
+|---|---|
+| `GET /dlq?status=NEW&limit=50` | Recent dead letters |
+| `GET /dlq/by-trace/{traceId}` | Everything dead-lettered in one trace |
+| `POST /dlq/{id}/replay` | Re-runs the original delivery through the consumer's own path |
+| `POST /dlq/{id}/discard` | Marks a row as deliberately abandoned |
+
+Schema is created by `ddl-auto: update` against the `comms_platform` Postgres database — the one that was running unused.
+
+### Outbox relay concurrency
+
+The relay claims rows with an atomic `findAndModify` (`PENDING → PROCESSING`), so two ingestion instances can't publish the same event. A crashed instance's claims are returned to `PENDING` after two minutes. Each scheduled pass is guarded by an `AtomicBoolean`, because `@Scheduled(fixedDelay)` measures from method *return* and a reactive `subscribe()` returns immediately.
+
+---
+
+## 6. Building images
+
+Jars are built by the reactor; the image is runtime-only.
+
+```bash
+mvn -q package -DskipTests
+docker build --build-arg MODULE=ingestionService -t comms-platform/ingestion-service .
+```
+
+Images carry no environment config. Point them at their dependencies at run time with `CONFIG_SERVER_URL`, `EUREKA_SERVER_URL`, and (for upstreamSimulator) `GATEWAY_URL`; everything else comes from the config server, where `config-repo-github` now addresses the compose DNS names with per-value env overrides.
+
+> `spotless:apply` is bound to `process-sources`, so every build normalises formatting. That is why a build touches files you did not edit.

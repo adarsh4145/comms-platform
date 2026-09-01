@@ -1,1 +1,30 @@
 greeting.message: Hello-from-github-config
+
+spring:
+  reactor:
+    context-propagation: auto
+
+management:
+  tracing:
+    enabled: true
+    propagation:
+      type: w3c
+    sampling:
+      probability: ${TRACING_SAMPLE_RATE:1.0}
+  opentelemetry:
+    resource-attributes:
+      deployment.environment: ${DEPLOY_ENV:docker}
+    tracing:
+      export:
+        otlp:
+          # Container/K8s DNS name of the collector; overridable per environment.
+          endpoint: ${OTEL_TRACES_ENDPOINT:http://comms-lgtm:4318/v1/traces}
+          transport: http
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,metrics
+
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "

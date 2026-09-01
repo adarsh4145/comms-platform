@@ -1,8 +1,10 @@
 package io.github.adarsh4145.ingestionService.config;
 
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
+import io.micrometer.observation.ObservationRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +13,19 @@ import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.SimpleReactiveMongoDatabaseFactory;
+import org.springframework.data.mongodb.observability.ContextProviderFactory;
+import org.springframework.data.mongodb.observability.MongoObservationCommandListener;
 import org.springframework.transaction.reactive.TransactionalOperator;
 
 /***
  * Creating this due to known issue of spring mongo db, it gives auth error
- * when using autoconfiguration
+ * when using autoconfiguration.
+ *
+ * <p>Because the client is built here rather than by Boot, none of Boot's
+ * MongoClientSettingsBuilderCustomizers apply — including the one that installs observation. The
+ * command listener and context provider below put that back, so Mongo commands appear as spans in
+ * the same trace as the request that issued them.
  */
-
 @Configuration
 @Slf4j
 public class MongoConfig {
@@ -31,9 +39,15 @@ public class MongoConfig {
   }
 
   @Bean
-  public MongoClient reactiveMongoClient() {
+  public MongoClient reactiveMongoClient(ObservationRegistry observationRegistry) {
     String uri = environment.getRequiredProperty(SPRING_DATA_MONGODB_URI);
-    return MongoClients.create(new ConnectionString(uri));
+    MongoClientSettings settings =
+        MongoClientSettings.builder()
+            .applyConnectionString(new ConnectionString(uri))
+            .addCommandListener(new MongoObservationCommandListener(observationRegistry))
+            .contextProvider(ContextProviderFactory.create(observationRegistry))
+            .build();
+    return MongoClients.create(settings);
   }
 
   @Bean

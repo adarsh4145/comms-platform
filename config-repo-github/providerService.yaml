@@ -1,8 +1,7 @@
-#TODO update service names correctly
 spring:
   mail:
-    host: localhost
-    port: 1025
+    host: ${SMTP_HOST:comms-buggregator}
+    port: ${SMTP_PORT:1025}
     properties:
       mail:
         smtp:
@@ -18,8 +17,8 @@ management:
 
 provider:
   simulation:
-    failure-rate: 0.2
+    failure-rate: ${PROVIDER_FAILURE_RATE:0.2}
     min-delay-ms: 200
     max-delay-ms: 2000
   sms:
-    gateway-url: http://localhost:8000/sms/twilio
+    gateway-url: ${SMS_GATEWAY_URL:http://comms-buggregator:8000/sms/twilio}

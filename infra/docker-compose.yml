@@ -1,4 +1,3 @@
-version: "3.9"
 
 networks:
   comms-net:
@@ -157,8 +156,9 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-#     KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      # Topics are provisioned explicitly by the Spring Cloud Stream binder AdminClient,
+      # so a typo'd destination should fail loudly rather than silently create a topic.
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
     volumes:
       - ./data/kafka_data:/var/lib/kafka/data
 
@@ -201,6 +201,26 @@ services:
     ports:
       - "8000:8000"   # Web UI + SMS interceptor (http://localhost:8000/sms/{provider})
       - "1025:1025"   # SMTP — email capture
+
+
+  # Traces (Tempo) + logs (Loki) + metrics (Prometheus) + Grafana, in one dev container.
+  # Services push OTLP/HTTP to :4318; you read it back in Grafana on :3000.
+  lgtm:
+    image: grafana/otel-lgtm:latest
+    container_name: comms-lgtm
+    networks:
+      comms-net:
+        ipv4_address: 172.28.0.70
+    ports:
+      - "3000:3000"   # Grafana UI — Explore > Tempo
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP  (what the services are configured to use)
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      # Storage is intentionally ephemeral — local telemetry is disposable, and bind-mounting
+      # Tempo/Loki data on Windows reliably trips over file permissions.
 
 volumes:
   mongo_keyfile:

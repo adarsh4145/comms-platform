@@ -10,9 +10,11 @@ http:
     type: json
     data: |-
       {
-        "recipient":"adarshkumar4145@gmail.com",
-        "message":"hello user",
-        "priority":"HIGH"
+        "recipient": "adarshkumar4145@gmail.com",
+        "message": "hello user",
+        "priority": "HIGH",
+        "channel": "EMAIL",
+        "from": "noreply@comms-platform.local"
       }
   auth: inherit
 

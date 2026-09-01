@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "providerService")
 public interface ProviderServiceClient {
 
-    @PostMapping("/provider/send")
-    SendResponse send(@RequestBody SendRequest request);
+  @PostMapping("/provider/send")
+  SendResponse send(@RequestBody SendRequest request);
 }

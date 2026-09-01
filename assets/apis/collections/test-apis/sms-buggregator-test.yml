@@ -11,12 +11,11 @@ http:
       value: application/json
   body:
     type: json
-    data: |2-
-      
-       {
+    data: |-
+      {
         "channel": "SMS",
         "recipient": "+5678901234",
-           "sender": "+2443546646",
+        "from": "+2443546646",
         "subject": null,
         "message": "Hello from providerService SMS test"
       }

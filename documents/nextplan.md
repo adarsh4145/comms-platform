@@ -118,3 +118,4 @@ were ever exposed. Tests are what make the rest safe.
   recording rules in `infra/prometheus-rules.yaml`.
 
 check forjego, gitea, opendev setup that.
+then sonar, snyk, cucumber feature test, test container and unit / integration tests also.

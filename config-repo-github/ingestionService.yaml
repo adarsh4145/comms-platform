@@ -16,11 +16,14 @@ spring:
         binder:
           # emits Kafka producer/consumer spans and injects traceparent into record headers
           enable-observation: true
-          # Provision topics deterministically through the binder AdminClient instead of
-          # leaning on the broker auto-create flag. 4 partitions so the CRITICAL consumer
-          # (concurrency 4) can actually use all of its threads.
+          # Topics are provisioned by infra/scripts/kafka-init.sh, which weights partitions by
+          # priority (4/3/2/1 x unit) to match consumer concurrency. auto-create stays on as a
+          # fallback for a broker that was never initialised.
+          #
+          # min-partition-count is deliberately NOT set. It applies one floor to every topic, so
+          # at 4 it would flatten the weighting - and with auto-add-partitions off, the binder
+          # refuses to start against notification.low, which only has one partition by design.
           auto-create-topics: true
-          min-partition-count: 4
           replication-factor: 1
           # StreamBridge sets a String message key; the binder defaults to ByteArraySerializer,
           # which fails every send with "Cant convert key of class java.lang.String"
@@ -34,3 +37,7 @@ spring:
           consumer:
             concurrency: 2
             max-attempts: 1
+
+notification:
+  idempotency:
+    ttl: ${IDEMPOTENCY_TTL:72h}

@@ -1,0 +1,26 @@
+info:
+  name: simulate mail notification via gateway
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: http://localhost:8030/upstreamsimulator/simulate/notification
+  body:
+    type: json
+    data: |-
+      {
+        "recipient": "+9142641574",
+        "message": "hello yo",
+        "priority": "LOW",
+        "channel": "SMS",
+        "from": "+912463535657"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

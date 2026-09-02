@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.reactive.TransactionalOperator;
@@ -26,7 +28,6 @@ import reactor.core.publisher.Mono;
 public class NotificationRequestService {
 
   private static final String IDEMPOTENCY_KEY_PREFIX = "idempotency:notification:";
-  private static final Duration IDEMPOTENCY_TTL = Duration.ofHours(24);
   private static final String EVENT_TYPE = "NotificationCreated";
   private static final String SOURCE_IDENTIFIER = "ingestionService";
 
@@ -36,6 +37,13 @@ public class NotificationRequestService {
   private final ReactiveStringRedisTemplate redisTemplate;
   private final EventSerde eventSerde;
   private final TracePropagation tracePropagation;
+
+  /**
+   * How long a duplicate request keeps resolving to the same notification. Configurable because
+   * the window that suits a laptop is not the one that suits a deployed environment.
+   */
+  @Value("${notification.idempotency.ttl:24h}")
+  private Duration idempotencyTtl;
 
   public Mono<NotificationRequest> createNotification(
       String idempotencyKey, CreateNotificationRequest request) {
@@ -142,7 +150,7 @@ public class NotificationRequestService {
       String redisKey, NotificationRequest saved) {
     return redisTemplate
         .opsForValue()
-        .set(redisKey, saved.getId(), IDEMPOTENCY_TTL)
+        .set(redisKey, saved.getId(), idempotencyTtl)
         .doOnNext(stored -> log.info("saved idempotency in redis: {}", stored))
         .onErrorResume(
             throwable -> {

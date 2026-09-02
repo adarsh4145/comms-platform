@@ -1,2 +1,3 @@
 io.github.adarsh4145.core.CoreAutoConfiguration
 io.github.adarsh4145.core.tracing.CoreTracingAutoConfiguration
+io.github.adarsh4145.core.tracing.CoreObservationAutoConfiguration

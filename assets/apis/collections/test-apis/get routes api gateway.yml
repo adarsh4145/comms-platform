@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8080/actuator/gateway/routes
+  url: http://localhost:9030/actuator/gateway/routes
   auth: inherit
 
 settings:

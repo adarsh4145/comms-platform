@@ -1,0 +1,111 @@
+# Replaces the copy baked into grafana/otel-lgtm (bind-mounted over /otel-lgtm/prometheus.yaml).
+#
+# The image ships this file with no scrape_configs at all - it is a pure OTLP receiver. Everything
+# below the `otlp:` block is ours: the Spring services expose /actuator/prometheus and the infra
+# exporters expose their own, and none of that can arrive by push.
+#
+# The otlp/storage blocks are copied verbatim from the image so the OTLP path (Tempo's span-metrics
+# generator remote-writing, and the collector's own metrics) keeps working.
+---
+global:
+  scrape_interval: 15s
+  scrape_native_histograms: true
+
+otlp:
+  keep_identifying_resource_attributes: true
+  # Recommended attributes to be promoted to labels.
+  promote_resource_attributes:
+    - service.instance.id
+    - service.name
+    - service.namespace
+    - service.version
+    - cloud.availability_zone
+    - cloud.region
+    - container.name
+    - deployment.environment # backward compatibility
+    - deployment.environment.name
+    - k8s.cluster.name
+    - k8s.container.name
+    - k8s.cronjob.name
+    - k8s.daemonset.name
+    - k8s.deployment.name
+    - k8s.job.name
+    - k8s.namespace.name
+    - k8s.node.name
+    - k8s.pod.name
+    - k8s.replicaset.name
+    - k8s.statefulset.name
+    - host.name
+    - postgresql.database.name
+    - postgresql.schema.name
+    - postgresql.table.name
+    - postgresql.index.name
+    - database # used by otelcol/receiver/mongodb
+    - kafka.cluster.alias
+
+storage:
+  tsdb:
+    # A 10min time window is enough because it can easily absorb retries and network delays.
+    out_of_order_time_window: 10m
+
+# See prometheus-rules.yaml - aliases so the image's own JVM dashboard keeps working.
+rule_files:
+  - /otel-lgtm/comms-rules.yaml
+
+scrape_configs:
+  # The seven Spring applications. They run on the host (IntelliJ / java -jar), not in this
+  # network, hence host.docker.internal rather than a container name.
+  #
+  # These are the MANAGEMENT ports, not the application ports - actuator has its own connector so
+  # it is not reachable through the gateway. A service and its actuator share their last two
+  # digits - 8040 pairs with 9040 - set next to server.port in each service own application.yaml.
+  - job_name: comms-apps
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["host.docker.internal:9030"]
+        labels: { application: cloudGateway }
+      - targets: ["host.docker.internal:9035"]
+        labels: { application: upstreamSimulator }
+      - targets: ["host.docker.internal:9040"]
+        labels: { application: ingestionService }
+      - targets: ["host.docker.internal:9045"]
+        labels: { application: dispatchService }
+      - targets: ["host.docker.internal:9050"]
+        labels: { application: providerService }
+      - targets: ["host.docker.internal:9025"]
+        labels: { application: eurekaServer }
+      - targets: ["host.docker.internal:9020"]
+        labels: { application: configServer }
+    relabel_configs:
+      # Dashboards key off `instance`; a bare host:port for seven different apps is useless.
+      - source_labels: [application]
+        target_label: instance
+
+  - job_name: kafka
+    static_configs:
+      - targets: ["comms-kafka-exporter:9308"]
+
+  - job_name: postgres
+    static_configs:
+      - targets: ["comms-postgres-exporter:9187"]
+        labels:
+          # Dashboard 9628 is helm/k8s-shaped: its namespace -> release -> instance variable chain
+          # only resolves when these labels exist. Supplying them at scrape time is cheaper than
+          # rewriting the dashboard and owning that diff forever.
+          kubernetes_namespace: comms-platform
+          release: comms-platform
+
+  - job_name: mongodb
+    static_configs:
+      - targets: ["comms-mongodb-exporter:9216"]
+
+  - job_name: redis
+    static_configs:
+      - targets: ["comms-redis-exporter:9121"]
+        labels:
+          # Same story for dashboard 763 - its instance dropdown hangs off a namespace label.
+          namespace: comms-platform
+
+  - job_name: cadvisor
+    static_configs:
+      - targets: ["comms-cadvisor:8080"]

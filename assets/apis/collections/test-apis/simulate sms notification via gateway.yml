@@ -1,20 +1,20 @@
 info:
-  name: simulate notification via gateway
+  name: simulate sms notification via gateway
   type: http
   seq: 3
 
 http:
   method: POST
-  url: http://localhost:8080/upstreamsimulator/simulate/notification
+  url: http://localhost:8030/upstreamsimulator/simulate/notification
   body:
     type: json
     data: |-
       {
-        "recipient": "test@example.com",
-        "message": "hello",
-        "priority": "HIGH",
+        "recipient": "+9142641574",
+        "message": "hello yo",
+        "priority": "LOW",
         "channel": "SMS",
-        "from": "+10000000000"
+        "from": "+912463535657"
       }
   auth: inherit
 

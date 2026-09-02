@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8083/notifications
+  url: http://localhost:8040/notifications
   headers:
     - name: Idempotency-Key
       value: bruno-direct-001

@@ -3,15 +3,23 @@ spring:
     name: providerService
 
   config:
-    import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:8020}
 
 server:
-  port: 8085
+  port: 8050
+
+management:
+  server:
+    # Actuator on its own connector, off the port the gateway routes to. A service and its
+    # actuator share their last two digits - 80xx pairs with 90xx - and services sit five apart,
+    # so a new one slots in without renumbering. Every service runs on the same host locally, so
+    # each needs its own pair; a containerised profile can collapse them via MANAGEMENT_SERVER_PORT.
+    port: ${MANAGEMENT_SERVER_PORT:9050}
 
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8025/eureka/}
     fetch-registry: true
     register-with-eureka: true
   instance:

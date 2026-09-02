@@ -1,0 +1,42 @@
+# Test-only configuration.
+#
+# Test resources precede main resources on the test classpath, and Spring Boot loads only the
+# first classpath:/application.yaml it finds - so this file REPLACES (does not merge with)
+# src/main/resources/application.yaml. Everything ProviderSimulationService reads with @Value
+# therefore has to be repeated here, or the bean fails to construct.
+
+spring:
+  application:
+    name: providerService
+  cloud:
+    config:
+      enabled: false
+  mail:
+    # Required: MailSenderAutoConfiguration only contributes a JavaMailSender when
+    # spring.mail.host is set, and ProviderSimulationService injects one. No SMTP connection
+    # is opened until a message is actually sent.
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+provider:
+  simulation:
+    failure-rate: 0.2
+    min-delay-ms: 200
+    max-delay-ms: 2000
+  sms:
+    gateway-url: http://localhost:8000/sms/twilio
+    default-sender: "+10000000000"
+  email:
+    default-sender: "noreply@comms-platform.local"

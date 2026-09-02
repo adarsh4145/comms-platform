@@ -1,0 +1,29 @@
+# Test-only configuration.
+#
+# Test resources precede main resources on the test classpath, and Spring Boot loads only the
+# first classpath:/application.yaml it finds - so this file REPLACES (does not merge with)
+# src/main/resources/application.yaml. That is what removes the mandatory
+# "spring.config.import: configserver:..." which otherwise fails contextLoads with
+# ConfigClientFailFastException when no config server is running.
+
+spring:
+  application:
+    name: cloudGateway
+  cloud:
+    config:
+      # Also required: with the config client on the classpath, Spring Cloud fails startup if no
+      # spring.config.import is set at all. Disabling the client skips that check.
+      enabled: false
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              # Nothing to discover in a test context.
+              enabled: false
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false

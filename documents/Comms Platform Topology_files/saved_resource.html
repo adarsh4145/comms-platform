@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<!-- saved from url=(0253)https://3d8157a9-54bd-4ac8-9ed8-ce352971f7f7.frame.claudeusercontent.com/_f/1788363213-218d/?__frame_t=yDamPGxOvsl4ZN8Fjxe-j3rP.9d5f6705-7163-41df-9d59-ca3d78e3d451.2b49bb46-033f-41fc-afde-2b7d76417c67.1788368232&__frame_v=manifest.26cdaaf7382591bc.json -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- frame-runtime --><script>window.__FRAME_PREAMBLE={"v":1,"capabilities":{"artifact":"artifact.0kpk9vgi.js","assets":"assets.8Gk803W0.js","comments":"comments.vw5vQdGA.js","db":"db.h-3sndFg.js","downloads":"downloads.C3GSvEDP.js","embed":"embed.CxGAyc-v.js","mcp":"mcp.Bvma3qD7.js","network":"network.B5UA9Su4.js","notifications":"notifications.ssU4jy7G.js","permissions":"permissions.BNySkLV5.js","room":"room.VSdFwTE9.js","sample":"sample.BW2Uysoh.js","self":"artifact.0kpk9vgi.js","user":"user.BpKav-Rf.js"},"transforms":"_transforms.DSB5x63f.js","comments":"_comments.C6E0cR5g.js","translate":"_translate.5HCW4BJh.js"}</script><script>(function(){"use strict";var te=["light","dark","system"],re=/^[A-Za-z0-9_-]{1,64}$/,$=/^[a-zA-Z_:][a-zA-Z0-9_:.-]{0,127}$/,ne=new Set(["class","hidden","value","checked","style","title","alt","placeholder","lang","dir","role","tabindex","disabled","readonly","contenteditable","open","colspan","rowspan"]);function oe(e){const t=e.toLowerCase();return t.startsWith("data-")||t.startsWith("aria-")||ne.has(t)}var Be="http://www.w3.org/1999/xhtml",se="http://www.w3.org/2000/svg",ae=new Set(["script","style","iframe","noscript","noframes","noembed","xmp","plaintext","template","title","textarea","object","embed"]),ie=new Set(["script","style"]);function ce(e){const t=e.localName.toLowerCase();return e.namespaceURI==="http://www.w3.org/1999/xhtml"?!ae.has(t):e.namespaceURI===se?!ie.has(t):!1}function M(e,t){return e===t||(e===160||e===32)&&(t===160||t===32)}function le(e,t){const r=e.length,n=t.length;let s=0;for(;s<r&&s<n&&M(e.charCodeAt(s),t.charCodeAt(s));)s++;let o=0;for(;o<r-s&&o<n-s&&M(e.charCodeAt(r-1-o),t.charCodeAt(n-1-o));)o++;return{p:s,s:o}}function ue(e,t){const r=e.firstChild;if(e.childNodes.length!==1||r===null||r.nodeType!==Node.TEXT_NODE){e.textContent=t;return}const n=r.data,s=n.length,o=t.length,{p:i,s:c}=le(n,t);i===s&&c===0&&s===o||r.replaceData(i,s-i-c,t.slice(i,o-c));const h=r.data,p=e.ownerDocument.getSelection?.()??null,w=p!==null&&p.rangeCount>0&&(p.anchorNode===r||p.focusNode===r)?{anchor:p.anchorNode,anchorOffset:p.anchorOffset,focus:p.focusNode,focusOffset:p.focusOffset}:null;let m=-1,g=-1;for(let f=0;f<h.length&&f<t.length;f++){const v=h.charCodeAt(f),b=t.charCodeAt(f);v!==b&&M(v,b)&&(m<0&&(m=f),g=f)}const a=m>=0;if(a&&r.replaceData(m,g-m+1,t.slice(m,g+1)),a&&w!==null&&w.anchor!==null&&w.focus!==null)try{p.setBaseAndExtent(w.anchor,w.anchorOffset,w.focus,w.focusOffset)}catch{}}var fe=new Set(["html","head","body","frameset"]);function de(e){return e.namespaceURI==="http://www.w3.org/1999/xhtml"&&fe.has(e.localName)}function pe(e){if(e===null||typeof e!="object")return!1;const t=e;if(typeof t.target!="string"||!re.test(t.target)||t.text!==void 0&&typeof t.text!="string")return!1;if(t.attrsSet!==void 0){if(t.attrsSet===null||typeof t.attrsSet!="object")return!1;for(const[r,n]of Object.entries(t.attrsSet))if(!$.test(r)||typeof n!="string")return!1}if(t.attrsRemoved!==void 0){if(!Array.isArray(t.attrsRemoved))return!1;for(const r of t.attrsRemoved)if(typeof r!="string"||!$.test(r))return!1}return!0}function me(e,t){if(e===null||typeof e!="object")return!1;const{seq:r,elements:n}=e;if(typeof r!="number"||!Number.isSafeInteger(r)||!Array.isArray(n)||n.length===0||n.length>64)return!1;for(let s=0;s<n.length;s++)if(!t(n[s]))return!1;return!0}function he(e){return e===null||typeof e!="object"?!1:me(e.__frame_patch,pe)}function _e(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function ve(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function ye(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const r=t.theme;return typeof r=="string"&&te.includes(r)}var A=/^[\w.-]+\.js$/;function we(e,t,r){return r?"inert":typeof t=="string"&&A.test(t)?e?[t]:"inert":e?"inert":"framed"}function ge(){return{post(e,t){parent.postMessage(e,t)},on(e){const t=r=>{r.source===parent&&e(r.data,r.origin,r.isTrusted)};return addEventListener("message",t),()=>removeEventListener("message",t)}}}function be(){return{post:()=>{},on:()=>()=>{}}}var j="__frame_scroll",Ee=150,Ae=310,Se=160,Te=3e4;function ke(){let e=0,t=!1,r=!1,n=!1,s=0,o=null;const i=l=>{try{sessionStorage.setItem(j,JSON.stringify({y:l}))}catch{}},c=()=>{if(clearTimeout(e),o===null)return;const l=o;o=null,i(l)},h=()=>{if(t){t=!1;return}r=!0,o=scrollY,clearTimeout(e),e=setTimeout(c,Ee)};try{addEventListener("scroll",h,{passive:!0}),addEventListener("pagehide",c)}catch{}const p=()=>{let l;try{l=sessionStorage.getItem(j)}catch{return null}if(l===null)return null;let _;try{_=JSON.parse(l)}catch{_=null}const d=_?.y;if(!(typeof d=="number"&&Number.isFinite(d)&&d>=0)){try{sessionStorage.removeItem(j)}catch{}return null}return d};let w=!1;const m=l=>{try{const _=scrollY;scrollTo({top:l,left:0,behavior:"instant"}),s=l,n=!0,clearTimeout(e),o=null,i(l);const d=scrollY;d!==_&&(t=!0),d!==l&&!w&&(w=!0,addEventListener("load",()=>{try{if(scrollY===d){const T=p();m(T!==null?T:s)}}catch{}},{once:!0}))}catch{}},g=()=>{try{return!!location.hash}catch{return!0}};let a=!1;const f=()=>{try{if(a||innerWidth>Ae||innerHeight>Se)return;a=!0;const l=Date.now(),_=()=>{try{removeEventListener("resize",_)}catch{}if(Date.now()-l>Te||r||g())return;const d=p();m(d!==null?d:s)};addEventListener("resize",_)}catch{}};let v=!1,b=!1;return{restore(){if(v||(v=!0,g()))return;const l=p();l!==null&&(m(l),f())},promoted(){if(b||(b=!0,g()))return;const l=p();l!==null?(m(l),f()):n&&m(s)}}}function Re(e,t,r,n){let s=null;try{s=window.trustedTypes?.createPolicy("frame-runtime",{createScriptURL:h=>h})??null}catch{}const o=window.Worker,i=o?.prototype,c=Object.freeze({Worker:o,workerOn:i?.addEventListener,workerPost:i?.postMessage,workerTerminate:i?.terminate,fetch:window.fetch.bind(window),preventDefault:Event.prototype.preventDefault,policy:s,origins:t});r(e).then(h=>h?.bootTopLevel?h.bootTopLevel(c,n):n.settle()).catch(()=>n.settle())}var De="modulepreload",Ie=function(e){return"/"+e},Ue={},Le=function(t,r,n){let s=Promise.resolve();function o(i){const c=new Event("vite:preloadError",{cancelable:!0});if(c.payload=i,window.dispatchEvent(c),!c.defaultPrevented)throw i}return s.then(i=>{for(const c of i||[])c.status==="rejected"&&o(c.reason);return t().catch(o)})},Oe=window===top,q=Object.getOwnPropertyDescriptor(window,"claude"),k=we(Oe,window.__FRAME_PREAMBLE?.topLevel,q?.writable===!1),N=typeof k=="object"&&k[0],y=N?be():ge();(function(){const e=Object.defineProperty,t=globalThis,r=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let n=0;for(let s=0;s<r.length;s++){const o=r[s];try{e(t,o,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[o]}catch{}try{e(t,o,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[o]=="function"&&n++}if(n&&k==="framed")try{y.post({__frame_rtc_lockdown_failed:n},"*")}catch{}})();var Pe=1e4,Y=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function X(e){for(const t of Y)if(t.endsWith(":*"))try{const r=new URL(e);if(`${r.protocol}//${r.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}var R=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),B=window.__FRAME_PREAMBLE?.transforms,D=window.__FRAME_PREAMBLE?.comments,I=window.__FRAME_PREAMBLE?.translate;function S(e){return Le(()=>import("/_runtime/"+e),void 0)}function G(e,t){return{contract:e.contract,changes:new Set(e.changes??[]),flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:new Map,shellOrigin:t,mount:x,hooks:O,pipe:()=>({wrap:(r,n)=>(...s)=>{try{return n(...s)}catch(o){return Promise.reject(o)}}})}}var L=null,E=null;function V(e,t,r){try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!0,enumerable:!0})}catch{}}}var U=!1,O={editBefore:null,edit:null};function Ce(e,t,r=!1){const n=[];let s;if(r)try{O.editBefore?.(e)}catch{}for(const o of e.elements){const i=document.querySelector(`[data-id="${o.target}"]`);if(!i){s=o.target;break}if([...Object.keys(o.attrsSet??{}),...o.attrsRemoved??[]].some(c=>!oe(c))){s=o.target;break}if(o.text!==void 0&&(!ce(i)||de(i))){s=o.target;break}for(const[c,h]of Object.entries(o.attrsSet??{}))if(!J(i,c)){try{i.setAttribute(c,h)}catch{}Z(i,c,h)}for(const c of o.attrsRemoved??[])J(i,c)||(i.removeAttribute(c),Z(i,c,null));typeof o.text=="string"&&ue(i,o.text),n.push(o.target)}if(r)try{O.edit?.(e.seq,n,s)}catch{}if(s!==void 0){y.post({__frame_patch_miss:{seq:e.seq}},t);return}try{document.dispatchEvent(new CustomEvent("claude:edit",{detail:{seq:e.seq,targets:n}}))}catch{}}function Z(e,t,r){if(!(e instanceof HTMLInputElement))return;const n=t.toLowerCase();n==="checked"?e.checked=r!==null:n==="value"&&e.type!=="file"&&(e.value=r??"")}function J(e,t){const r=t.toLowerCase(),n=e;return r==="data-id"||(r==="value"||r==="checked")&&(n.__artifactSecret===!0||/^(password|hidden|file)$/.test(n.type??"")||/(^|\s)(cc-|one-time-code|current-password|new-password)/i.test(`${e.getAttribute("autocomplete")??""} ${n.autocomplete??""}`))}function Q(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,U=!0):U&&(delete t.dataset.theme,t.style.colorScheme="",U=!1)}var P=new Map;function Me(){let e;const t={u:new Promise(r=>{e=r}),r:r=>{t.done=!0,e(r)},done:!1,nulled:!1};return t}function F(){for(const e of P.values())e.done||(e.nulled=!0,e.r(null))}var je=Object.freeze(Object.assign(Object.create(null),{call:Function.prototype.call,apply:Function.prototype.apply,bind:Function.prototype.bind})),x=(e,t)=>{const r=P.get(e);if(!r||r.done){r?.nulled&&E&&y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:e}},E);return}const n=typeof t=="function"?Object.setPrototypeOf(t,je):Object.assign(Object.create(null),t);typeof n.then=="function"&&delete n.then,r.r(Object.freeze(n))};function ee(){const e=q?.value??{};V(window,"claude",e);for(const t of Object.keys(R)){if(e[t]!==void 0){V(e,t,e[t]);continue}P.set(t,Me())}if(e.use===void 0){const t=r=>{if(typeof r!="string"||!Object.hasOwn(R,r))return Promise.resolve(null);const n=P.get(r);return n?n.u:Promise.resolve(e[r]??null)};try{Object.defineProperty(e,"use",{value:t,writable:!0,configurable:!0,enumerable:!1})}catch{}}}if(k==="framed"){const e=B&&A.test(B)?S(B).catch(()=>{}):Promise.resolve(void 0),t=a=>{if(a.type==="auxclick"&&a.button!==1)return;const f=a.target,v=f&&f.closest?f.closest("a[href],area[href]"):null;if(!v)return;const b=v.getAttribute("href");if(!b)return;let l;try{l=new URL(b,document.baseURI)}catch{return}if((l.protocol==="http:"||l.protocol==="https:")&&l.origin!==location.origin){a.preventDefault();const _=(v.getAttribute("target")??"").toLowerCase(),d=a.type==="auxclick"||a.metaKey||a.ctrlKey||a.shiftKey||a.altKey||!["","_self","_top","_parent"].includes(_);y.post({__frame_nav:!0,url:l.href,newTab:d},"*")}};addEventListener("click",t,!0),addEventListener("auxclick",t,!0);const r={},n=a=>{a.isTrusted&&(r.pointer=!0)},s=a=>{a.isTrusted&&(r.click=!0)};addEventListener("pointermove",n,{capture:!0,passive:!0}),addEventListener("click",s,{capture:!0,passive:!0}),e.then(a=>{a?.wireNav&&(a.wireNav(),removeEventListener("click",t,!0),removeEventListener("auxclick",t,!0),removeEventListener("pointermove",n,!0),removeEventListener("click",s,!0),a.wireEngagement?.(r))});let o=null;try{o=ke()}catch{}ee();let i=null,c=null,h=0;const p=y.on((a,f)=>{X(f)&&_e(a)&&(i=a.__frame_init,E=f,p(),clearTimeout(h),c?.())});y.post({__frame_connect:!0},"*");const w=new Promise(a=>{c=a,h=setTimeout(()=>{p(),a()},Pe)}),m=document.readyState==="loading"?new Promise(a=>document.addEventListener("DOMContentLoaded",()=>a(),{once:!0})):Promise.resolve();m.then(()=>{try{o?.restore()}catch{}});const g={cb:null};y.on((a,f)=>{if(X(f)&&ve(a)){try{o?.promoted()}catch{}g.cb?.()}}),w.then(async()=>{if(!i||!E){F();return}Q(i.theme);const a=E;let f=!1,v=!1;y.on((u,z,C)=>{if(z!==a)return;ye(u)&&Q(u.__frame_theme.theme),he(u)&&Ce(u.__frame_patch,a,C);const H=u?.__fc_mode;H&&typeof H=="object"&&!f&&D&&A.test(D)&&(f=!0,S(D).then(K=>K.install?.(a,H.on===!0)).catch(()=>{}));const W=u?.__ft_cmd;W&&typeof W=="object"&&!v&&I&&A.test(I)&&(v=!0,S(I).then(K=>K.install?.(a,W)).catch(()=>{}))});const b=Object.keys(i.capabilities??{}).filter(u=>Object.hasOwn(R,u)).map(u=>[u,R[u]]).filter(u=>typeof u[1]=="string"&&A.test(u[1])),l=await Promise.allSettled(b.map(([,u])=>S(u))),_=await e,d=E;if(_?.buildBoot||y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},d),_?.buildBoot)try{L=_.buildBoot(i,_.TRANSFORMS??{},{shellOrigin:d,mount:x,hooks:O},u=>y.post({__frame_cap_telemetry:u},d))}catch{y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},d),L=G(i,d)}else L=G(i,d);const T=u=>y.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:u}},d),Ne=L;l.forEach((u,z)=>{const C=b[z][0];if(u.status!=="fulfilled"){T(C);return}try{u.value?.install?.(Ne)}catch{T(C)}}),F(),await m,y.post({__frame_ready:!0},E),e.then(u=>u?.installSizeReporter?.(d,g))})}else N&&(ee(),Re(N,Y,S,{settle:F,mount:x}))})();</script><!-- /frame-runtime --><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Comms Platform Topology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./css2">
+
+<style>
+  :root {
+    --paper:        #F4F5F1;
+    --surface:      #FFFFFF;
+    --surface-sunk: #ECEEE8;
+    --ink:          #151C1A;
+    --ink-soft:     #4A554F;
+    --ink-faint:    #7C867F;
+    --rule:         #D8DCD3;
+    --rule-strong:  #BFC5B9;
+
+    --pine:         #1E6A5E;
+    --pine-tint:    #E2EEEA;
+    --ochre:        #8F6420;
+    --ochre-tint:   #F5EBDA;
+    --steel:        #3F6076;
+    --steel-tint:   #E3EAEF;
+
+    --schematic:    #F2F3EE;
+    --schematic-rule: #D5D9CE;
+
+    --max: 74rem;
+    --prose: 40rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #121613;
+      --surface:      #1A201C;
+      --surface-sunk: #161B18;
+      --ink:          #E8ECE5;
+      --ink-soft:     #A9B3AA;
+      --ink-faint:    #7A857C;
+      --rule:         #2A322C;
+      --rule-strong:  #3B443D;
+
+      --pine:         #6FC0AF;
+      --pine-tint:    #1B2B27;
+      --ochre:        #D3A85F;
+      --ochre-tint:   #2C2418;
+      --steel:        #8FB2C7;
+      --steel-tint:   #1B242A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:        #121613;
+    --surface:      #1A201C;
+    --surface-sunk: #161B18;
+    --ink:          #E8ECE5;
+    --ink-soft:     #A9B3AA;
+    --ink-faint:    #7A857C;
+    --rule:         #2A322C;
+    --rule-strong:  #3B443D;
+
+    --pine:         #6FC0AF;
+    --pine-tint:    #1B2B27;
+    --ochre:        #D3A85F;
+    --ochre-tint:   #2C2418;
+    --steel:        #8FB2C7;
+    --steel-tint:   #1B242A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 4.5rem 1.75rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  /* ---------- masthead ---------- */
+
+  header { display: flex; flex-direction: column; gap: 1rem; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pine);
+  }
+
+  h1 {
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .standfirst {
+    max-width: var(--prose);
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  h2 {
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: -0.012em;
+    margin: 0;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  p { margin: 0; max-width: var(--prose); }
+  .note { color: var(--ink-soft); font-size: 0.95rem; }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.87em;
+  }
+  p code, td code, li code {
+    background: var(--surface-sunk);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.08em 0.34em;
+  }
+
+  /* ---------- schematic panel ----------
+     Deliberately a fixed light sheet in both themes: the diagram is a printed
+     schematic pinned to the page, and Mermaid renders with one palette. */
+
+  .sheet {
+    background: var(--schematic);
+    border: 1px solid var(--schematic-rule);
+    border-radius: 2px;
+    overflow-x: auto;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 1px 2px rgba(20, 28, 24, 0.06);
+  }
+  .sheet .mermaid { display: flex; justify-content: safe center; }
+  /* The renderer hands back an SVG sized to fill its container, which squeezes a wide diagram
+     down until the labels are unreadable. Let it take its intrinsic size from the viewBox and
+     let .sheet scroll instead. */
+  .sheet .mermaid svg {
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+  }
+
+  /* Mermaid renders natively and takes the viewer's theme for anything the init block does not
+     pin — edge labels arrived black-on-black on this always-light sheet. Literals, not tokens,
+     because the sheet does not change with the theme. */
+  .sheet .edgeLabel,
+  .sheet .edgeLabel p,
+  .sheet .edgeLabel span,
+  .sheet .edgeLabels div {
+    background-color: #F2F3EE !important;
+    color: #151C1A !important;
+  }
+  .sheet .edgeLabel rect,
+  .sheet .edgeLabels rect { fill: #F2F3EE !important; }
+  .sheet .edgeLabel foreignObject div { background-color: #F2F3EE !important; }
+
+  .sheet-caption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: baseline;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .sheet-caption b { color: var(--ink-soft); font-weight: 500; }
+
+  /* ---------- port table ---------- */
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 2px; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 44rem;
+    background: var(--surface);
+    font-size: 0.92rem;
+  }
+  thead th {
+    text-align: left;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--rule-strong);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  td.name { font-weight: 500; white-space: nowrap; }
+  .role { color: var(--ink-soft); }
+
+  .tier {
+    display: inline-block;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.16rem 0.45rem;
+    border-radius: 2px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .tier.edge   { color: var(--pine); }
+  .tier.core   { color: var(--pine); background: var(--pine-tint); }
+  .tier.plat   { color: var(--steel); background: var(--steel-tint); }
+  .tier.data   { color: var(--ochre); background: var(--ochre-tint); }
+
+  /* ---------- notes grid ---------- */
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+  .card {
+    background: var(--surface);
+    padding: 1.35rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .card p { font-size: 0.92rem; color: var(--ink-soft); max-width: none; }
+
+  .rail {
+    border-left: 2px solid var(--ochre);
+    background: var(--ochre-tint);
+    padding: 1rem 1.25rem;
+    border-radius: 0 2px 2px 0;
+  }
+  .rail p { max-width: none; font-size: 0.94rem; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">High-level design · comms-platform</div>
+    <h1>Comms Platform Topology</h1>
+    <p class="standfirst">
+      Seven Spring Boot applications, four backing stores and one observability stack. This is what
+      talks to what, and on which port — drawn as two planes, because every service touches config,
+      discovery and telemetry, and drawing those edges on the request path turns it into a hairball.
+    </p>
+  </header>
+
+  <section>
+    <h2>Request plane — how a notification travels</h2>
+    <p class="note">
+      One path, left to right, with the delivery outcome looping back to the store it started in.
+      Rounded boxes are Spring applications; cylinders and the hexagon are infrastructure; dashed
+      boxes sit outside the platform.
+    </p>
+
+    <div class="sheet">
+      <div class="mermaid-diagram"><svg id="claude-mermaid-0" width="2492.937744140625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="359.693359375" viewBox="0.00000762939453125 6.875873565673828 2492.937744140625 359.693359375" role="graphics-document document" aria-roledescription="flowchart-v2" style="max-width: none; width: 2493px; height: 360px;"><style>#claude-mermaid-0{font-size:13px;fill:#151C1A;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#claude-mermaid-0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#claude-mermaid-0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#claude-mermaid-0 .error-icon{fill:#F2F3EE;}#claude-mermaid-0 .error-text{fill:#151C1A;stroke:#151C1A;}#claude-mermaid-0 .edge-thickness-normal{stroke-width:1px;}#claude-mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#claude-mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#claude-mermaid-0 .edge-thickness-invisible{stroke-width:0;fill:none;}#claude-mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#claude-mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#claude-mermaid-0 .marker{fill:#6E7A72;stroke:#6E7A72;}#claude-mermaid-0 .marker.cross{stroke:#6E7A72;}#claude-mermaid-0 svg{font-size:13px;}#claude-mermaid-0 p{margin:0;}#claude-mermaid-0 .label{color:#151C1A;}#claude-mermaid-0 .cluster-label text{fill:#f2f3f5;}#claude-mermaid-0 .cluster-label span{color:#f2f3f5;}#claude-mermaid-0 .cluster-label span p{background-color:transparent;}#claude-mermaid-0 .label text,#claude-mermaid-0 span{fill:#151C1A;color:#151C1A;}#claude-mermaid-0 .node rect,#claude-mermaid-0 .node circle,#claude-mermaid-0 .node ellipse,#claude-mermaid-0 .node polygon,#claude-mermaid-0 .node path{fill:#262b34;stroke:#9aa4b8;stroke-width:1px;}#claude-mermaid-0 .rough-node .label text,#claude-mermaid-0 .node .label text,#claude-mermaid-0 .image-shape .label,#claude-mermaid-0 .icon-shape .label{text-anchor:middle;}#claude-mermaid-0 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#claude-mermaid-0 .rough-node .label,#claude-mermaid-0 .node .label,#claude-mermaid-0 .image-shape .label,#claude-mermaid-0 .icon-shape .label{text-align:center;}#claude-mermaid-0 .node.clickable{cursor:pointer;}#claude-mermaid-0 .root .anchor path{fill:#6E7A72!important;stroke-width:0;stroke:#6E7A72;}#claude-mermaid-0 .arrowheadPath{fill:#0d0c11;}#claude-mermaid-0 .edgePath .path{stroke:#6E7A72;stroke-width:1px;}#claude-mermaid-0 .flowchart-link{stroke:#6E7A72;fill:none;}#claude-mermaid-0 .edgeLabel{background-color:#F2F3EE;text-align:center;}#claude-mermaid-0 .edgeLabel p{background-color:#F2F3EE;}#claude-mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F2F3EE;fill:#F2F3EE;}#claude-mermaid-0 .labelBkg{background-color:rgba(242, 243, 238, 0.5);}#claude-mermaid-0 .cluster rect{fill:#F2F3EE;stroke:#9aa4b8;stroke-width:1px;}#claude-mermaid-0 .cluster text{fill:#f2f3f5;}#claude-mermaid-0 .cluster span{color:#f2f3f5;}#claude-mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-size:12px;background:#F2F3EE;border:1px solid hsl(72, 0%, 100%);border-radius:2px;pointer-events:none;z-index:100;}#claude-mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#151C1A;}#claude-mermaid-0 rect.text{fill:none;stroke-width:0;}#claude-mermaid-0 .icon-shape,#claude-mermaid-0 .image-shape{background-color:#F2F3EE;text-align:center;}#claude-mermaid-0 .icon-shape p,#claude-mermaid-0 .image-shape p{background-color:#F2F3EE;padding:2px;}#claude-mermaid-0 .icon-shape .label rect,#claude-mermaid-0 .image-shape .label rect{opacity:0.5;background-color:#F2F3EE;fill:#F2F3EE;}#claude-mermaid-0 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#claude-mermaid-0 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#claude-mermaid-0 .node .neo-node{stroke:#9aa4b8;}#claude-mermaid-0 [data-look="neo"].node rect,#claude-mermaid-0 [data-look="neo"].cluster rect,#claude-mermaid-0 [data-look="neo"].node polygon{stroke:url(#claude-mermaid-0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-0 [data-look="neo"].swimlane.cluster rect{filter:none;}#claude-mermaid-0 [data-look="neo"].node path{stroke:url(#claude-mermaid-0-gradient);stroke-width:1px;}#claude-mermaid-0 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-0 [data-look="neo"].node .neo-line path{stroke:#9aa4b8;filter:none;}#claude-mermaid-0 [data-look="neo"].node circle{stroke:url(#claude-mermaid-0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-0 [data-look="neo"].node circle .state-start{fill:#000000;}#claude-mermaid-0 [data-look="neo"].icon-shape .icon{fill:url(#claude-mermaid-0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-0 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#claude-mermaid-0-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-0 .node rect,#claude-mermaid-0 .node circle,#claude-mermaid-0 .node polygon,#claude-mermaid-0 .node path,#claude-mermaid-0 .cluster rect{stroke-width:2px;}#claude-mermaid-0 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#claude-mermaid-0 .app&gt;*{fill:rgb(226, 238, 234)!important;stroke:rgb(30, 106, 94)!important;stroke-width:1.5px!important;color:rgb(18, 59, 52)!important;}#claude-mermaid-0 .app span{fill:rgb(226, 238, 234)!important;stroke:rgb(30, 106, 94)!important;stroke-width:1.5px!important;color:rgb(18, 59, 52)!important;}#claude-mermaid-0 .app tspan{fill:rgb(18, 59, 52)!important;}#claude-mermaid-0 .data&gt;*{fill:rgb(245, 235, 218)!important;stroke:rgb(143, 100, 32)!important;stroke-width:1.5px!important;color:rgb(78, 55, 18)!important;}#claude-mermaid-0 .data span{fill:rgb(245, 235, 218)!important;stroke:rgb(143, 100, 32)!important;stroke-width:1.5px!important;color:rgb(78, 55, 18)!important;}#claude-mermaid-0 .data tspan{fill:rgb(78, 55, 18)!important;}#claude-mermaid-0 .ext&gt;*{fill:rgb(234, 235, 230)!important;stroke:rgb(137, 145, 138)!important;stroke-width:1.3px!important;stroke-dasharray:5,3!important;color:rgb(58, 64, 59)!important;}#claude-mermaid-0 .ext span{fill:rgb(234, 235, 230)!important;stroke:rgb(137, 145, 138)!important;stroke-width:1.3px!important;stroke-dasharray:5,3!important;color:rgb(58, 64, 59)!important;}#claude-mermaid-0 .ext tspan{fill:rgb(58, 64, 59)!important;}</style><g><marker id="claude-mermaid-0_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-0_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-0_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-0_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="claude-mermaid-0_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-0_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-0_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-0_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-0_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-0_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-0_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="claude-mermaid-0_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M222.021,170.216L236.695,170.216C251.37,170.216,280.719,170.216,309.401,170.216C338.083,170.216,366.099,170.216,380.107,170.216L394.115,170.216" id="claude-mermaid-0-L_sim_gw_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_sim_gw_0" data-points="W3sieCI6MjIyLjAyMDgyODI0NzA3MDMsInkiOjE3MC4yMTU2NTYyODA1MTc1OH0seyJ4IjozMTAuMDY3NzAzMjQ3MDcwMywieSI6MTcwLjIxNTY1NjI4MDUxNzU4fSx7IngiOjM5OC4xMTQ1NzgyNDcwNzAzLCJ5IjoxNzAuMjE1NjU2MjgwNTE3NTh9XQ==" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M582.76,170.216L597.605,170.216C612.45,170.216,642.139,170.216,671.161,170.216C700.184,170.216,728.54,170.216,742.718,170.216L756.896,170.216" id="claude-mermaid-0-L_gw_ing_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_gw_ing_0" data-points="W3sieCI6NTgyLjc2MDQwNjQ5NDE0MDYsInkiOjE3MC4yMTU2NTYyODA1MTc1OH0seyJ4Ijo2NzEuODI4MTE3MzcwNjA1NSwieSI6MTcwLjIxNTY1NjI4MDUxNzU4fSx7IngiOjc2MC44OTU4MjgyNDcwNzAzLCJ5IjoxNzAuMjE1NjU2MjgwNTE3NTh9XQ==" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M899.773,145.466L931.575,125.805C963.376,106.144,1026.98,66.822,1080.12,49.744C1133.26,32.666,1175.936,37.832,1197.274,40.415L1218.612,42.998" id="claude-mermaid-0-L_ing_mongo_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_ing_mongo_0" data-points="W3sieCI6ODk5Ljc3MjkwNzE4NTIwNjksInkiOjE0NS40NjU2NTYyODA1MTc1OH0seyJ4IjoxMDkwLjU4MzMyODI0NzA3MDMsInkiOjI3LjV9LHsieCI6MTIyMi41ODMzMjgyNDcwNzAzLCJ5Ijo0My40NzkxMDc0NTgzMzAxMzR9XQ==" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M958.583,170.216L980.583,170.216C1002.583,170.216,1046.583,170.216,1094.407,170.216C1142.231,170.216,1193.878,170.216,1219.702,170.216L1245.526,170.216" id="claude-mermaid-0-L_ing_redis_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_ing_redis_0" data-points="W3sieCI6OTU4LjU4MzMyODI0NzA3MDMsInkiOjE3MC4yMTU2NTYyODA1MTc1OH0seyJ4IjoxMDkwLjU4MzMyODI0NzA3MDMsInkiOjE3MC4yMTU2NTYyODA1MTc1OH0seyJ4IjoxMjQ5LjUyNjAzNTMwODgzOCwieSI6MTcwLjIxNTY1NjI4MDUxNzU4fV0=" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M942.788,194.966L967.421,202.307C992.053,209.648,1041.318,224.329,1090.979,235.344C1140.64,246.359,1190.696,253.707,1215.725,257.381L1240.753,261.055" id="claude-mermaid-0-L_ing_kafka_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_ing_kafka_0" data-points="W3sieCI6OTQyLjc4ODA0NTI0MDQ0OTcsInkiOjE5NC45NjU2NTYyODA1MTc1OH0seyJ4IjoxMDkwLjU4MzMyODI0NzA3MDMsInkiOjIzOS4wMTE0MjEyMDM2MTMyOH0seyJ4IjoxMjQ0LjcxMDU3NDYzNDcwNzIsInkiOjI2MS42MzYwMjE1OTg1MDU0N31d" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M1345.117,263.27L1366.686,260.818C1388.255,258.366,1431.393,253.462,1470.483,252.686C1509.572,251.911,1544.613,255.265,1562.133,256.943L1579.654,258.62" id="claude-mermaid-0-L_kafka_dis_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_kafka_dis_0" data-points="W3sieCI6MTM0NS4xMTY4OTE2MjExOTI1LCJ5IjoyNjMuMjcwMTQxMTIyMDIzNjN9LHsieCI6MTQ3NC41MzEyNSwieSI6MjQ4LjU1NzE4NjEyNjcwODk4fSx7IngiOjE1ODMuNjM1NDIxNzUyOTI5NywieSI6MjU5LjAwMDc4MDgyNTQwNTh9XQ==" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M1761.319,243.557L1777.35,238.626C1793.381,233.695,1825.443,223.832,1854.045,218.901C1882.646,213.97,1907.786,213.97,1920.357,213.97L1932.927,213.97" id="claude-mermaid-0-L_dis_pro_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_dis_pro_0" data-points="W3sieCI6MTc2MS4zMTk0MDczMzQxNjkyLCJ5IjoyNDMuNTU3MTg2MTI2NzA4OTh9LHsieCI6MTg1Ny41MDUyMTg1MDU4NTk0LCJ5IjoyMTMuOTY5ODM3MTg4NzIwN30seyJ4IjoxOTM2LjkyNzA5MzUwNTg1OTQsInkiOjIxMy45Njk4MzcxODg3MjA3fV0=" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M2129.948,213.97L2141.618,213.97C2153.288,213.97,2176.628,213.97,2199.302,213.97C2221.976,213.97,2243.983,213.97,2254.986,213.97L2265.99,213.97" id="claude-mermaid-0-L_pro_bug_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_pro_bug_0" data-points="W3sieCI6MjEyOS45NDc5MjE3NTI5Mjk3LCJ5IjoyMTMuOTY5ODM3MTg4NzIwN30seyJ4IjoyMTk5Ljk2ODc1NzYyOTM5NDUsInkiOjIxMy45Njk4MzcxODg3MjA3fSx7IngiOjIyNjkuOTg5NTkzNTA1ODU5NCwieSI6MjEzLjk2OTgzNzE4ODcyMDd9XQ==" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M1761.319,293.057L1777.35,297.988C1793.381,302.92,1825.443,312.782,1859.796,317.713C1894.149,322.645,1930.793,322.645,1949.115,322.645L1967.438,322.645" id="claude-mermaid-0-L_dis_pg_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_dis_pg_0" data-points="W3sieCI6MTc2MS4zMTk0MDczMzQxNjkyLCJ5IjoyOTMuMDU3MTg2MTI2NzA5fSx7IngiOjE4NTcuNTA1MjE4NTA1ODU5NCwieSI6MzIyLjY0NDUzNTA2NDY5NzI3fSx7IngiOjE5NzEuNDM3NTA3NjI5Mzk0NSwieSI6MzIyLjY0NDUzNTA2NDY5NzI3fV0=" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M1583.635,277.614L1565.451,279.354C1547.267,281.095,1510.899,284.576,1471.809,284.101C1432.719,283.627,1390.907,279.196,1370.001,276.981L1349.095,274.766" id="claude-mermaid-0-L_dis_kafka_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_dis_kafka_0" data-points="W3sieCI6MTU4My42MzU0MjE3NTI5Mjk3LCJ5IjoyNzcuNjEzNTkxNDI4MDEyMTd9LHsieCI6MTQ3NC41MzEyNSwieSI6Mjg4LjA1NzE4NjEyNjcwOX0seyJ4IjoxMzQ1LjExNjg5MTYyMTE5MjUsInkiOjI3NC4zNDQyMzExMzEzOTQ0fV0=" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M1243.596,273.75L1218.094,276.134C1192.592,278.519,1141.588,283.288,1086.286,270.46C1030.984,257.633,971.385,227.209,941.585,211.996L911.786,196.784" id="claude-mermaid-0-L_kafka_ing_0" class="edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_kafka_ing_0" data-points="W3sieCI6MTI0My41OTYzMzQ2MzY2NjExLCJ5IjoyNzMuNzQ5ODcwNjU4ODIwM30seyJ4IjoxMDkwLjU4MzMyODI0NzA3MDMsInkiOjI4OC4wNTcxODYxMjY3MDl9LHsieCI6OTA4LjIyMzE4ODU2NjQzMDUsInkiOjE5NC45NjU2NTYyODA1MTc1OH1d" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path><path d="M932.249,145.466L958.638,136.458C985.027,127.451,1037.805,109.435,1085.54,96.305C1133.274,83.174,1175.965,74.927,1197.31,70.804L1218.656,66.68" id="claude-mermaid-0-L_ing_mongo_2" class="edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_ing_mongo_2" data-points="W3sieCI6OTMyLjI0ODczNTE2NDcyMzUsInkiOjE0NS40NjU2NTYyODA1MTc1OH0seyJ4IjoxMDkwLjU4MzMyODI0NzA3MDMsInkiOjkxLjQyMDMyODE0MDI1ODc5fSx7IngiOjEyMjIuNTgzMzI4MjQ3MDcwMywieSI6NjUuOTIxNjc3NTQyNzU0Njd9XQ==" data-look="classic" marker-end="url(#claude-mermaid-0_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(310.0677032470703, 170.21565628051758)"><g class="label" data-id="L_sim_gw_0" transform="translate(-56.046875, -9.75)"><foreignobject width="112.09375" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>POST /notifications</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(671.8281173706055, 170.21565628051758)"><g class="label" data-id="L_gw_ing_0" transform="translate(-57.067710876464844, -9.75)"><foreignobject width="114.13542175292969" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>routed by service id</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1051.72585, 51.52305)"><g class="label" data-id="L_ing_mongo_0" transform="translate(-100, -19.5)"><foreignobject width="200" height="39"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>notification + outbox,one transaction</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1090.5833282470703, 170.21565628051758)"><g class="label" data-id="L_ing_redis_0" transform="translate(-63.49479293823242, -9.75)"><foreignobject width="126.98958587646484" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>idempotency key, TTL</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1090.5833282470703, 239.01142120361328)"><g class="label" data-id="L_ing_kafka_0" transform="translate(-36.15104293823242, -9.75)"><foreignobject width="72.30208587646484" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>outbox relay</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1464.27474, 249.72324)"><g class="label" data-id="L_kafka_dis_0" transform="translate(-60.08854293823242, -9.75)"><foreignobject width="120.17708587646484" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>notification.{priority}</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1857.5052185058594, 213.9698371887207)"><g class="label" data-id="L_dis_pro_0" transform="translate(-47.421875, -9.75)"><foreignobject width="94.84375" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Feign via Eureka</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(2199.9687576293945, 213.9698371887207)"><g class="label" data-id="L_pro_bug_0" transform="translate(-38.020835876464844, -9.75)"><foreignobject width="76.04167175292969" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>SMTP · HTTP</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1857.5052185058594, 322.64453506469727)"><g class="label" data-id="L_dis_pg_0" transform="translate(-31.885417938232422, -9.75)"><foreignobject width="63.770835876464844" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>dead letter</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1464.32042, 286.97523)"><g class="label" data-id="L_dis_kafka_0" transform="translate(-77.10417175292969, -9.75)"><foreignobject width="154.20834350585938" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>notification.delivery.status</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1067.8419, 276.4481)"><g class="label" data-id="L_kafka_ing_0" transform="translate(-50.375, -9.75)"><foreignobject width="100.75" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>delivery outcome</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1075.03226, 96.72847)"><g class="label" data-id="L_ing_mongo_2" transform="translate(-82.11979675292969, -9.75)"><foreignobject width="164.23959350585938" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>RECEIVED → SENT / FAILED</p></span></div></foreignobject></g></g></g><g class="nodes"><g class="node default ext" id="claude-mermaid-0-flowchart-sim-0" data-look="classic" transform="translate(115.01041412353516, 170.21565628051758)"><rect class="basic label-container" style="fill:#EAEBE6 !important;stroke:#89918A !important;stroke-width:1.3px !important;stroke-dasharray:5 3 !important" x="-107.01042175292969" y="-24.75" width="214.02084350585938" height="49.5"></rect><g class="label" style="color:#3A403B !important" transform="translate(-77.01042175292969, -9.75)"><rect></rect><foreignobject width="154.02084350585938" height="19.5"><div style="color: rgb(58, 64, 59) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#3A403B !important" class="nodeLabel"><p>upstreamSimulator · 8035</p></span></div></foreignobject></g></g><g class="node default app" id="claude-mermaid-0-flowchart-gw-1" data-look="classic" transform="translate(490.43749237060547, 170.21565628051758)"><rect class="basic label-container" style="fill:#E2EEEA !important;stroke:#1E6A5E !important;stroke-width:1.5px !important" x="-92.32291793823242" y="-24.75" width="184.64583587646484" height="49.5"></rect><g class="label" style="color:#123B34 !important" transform="translate(-62.32291793823242, -9.75)"><rect></rect><foreignobject width="124.64583587646484" height="19.5"><div style="color: rgb(18, 59, 52) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#123B34 !important" class="nodeLabel"><p>cloudGateway · 8030</p></span></div></foreignobject></g></g><g class="node default app" id="claude-mermaid-0-flowchart-ing-2" data-look="classic" transform="translate(859.7395782470703, 170.21565628051758)"><rect class="basic label-container" style="fill:#E2EEEA !important;stroke:#1E6A5E !important;stroke-width:1.5px !important" x="-98.84375" y="-24.75" width="197.6875" height="49.5"></rect><g class="label" style="color:#123B34 !important" transform="translate(-68.84375, -9.75)"><rect></rect><foreignobject width="137.6875" height="19.5"><div style="color: rgb(18, 59, 52) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#123B34 !important" class="nodeLabel"><p>ingestionService · 8040</p></span></div></foreignobject></g></g><g class="node default app" id="claude-mermaid-0-flowchart-dis-3" data-look="classic" transform="translate(1680.8593826293945, 268.307186126709)"><rect class="basic label-container" style="fill:#E2EEEA !important;stroke:#1E6A5E !important;stroke-width:1.5px !important" x="-97.22396087646484" y="-24.75" width="194.4479217529297" height="49.5"></rect><g class="label" style="color:#123B34 !important" transform="translate(-67.22396087646484, -9.75)"><rect></rect><foreignobject width="134.4479217529297" height="19.5"><div style="color: rgb(18, 59, 52) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#123B34 !important" class="nodeLabel"><p>dispatchService · 8045</p></span></div></foreignobject></g></g><g class="node default app" id="claude-mermaid-0-flowchart-pro-4" data-look="classic" transform="translate(2033.4375076293945, 213.9698371887207)"><rect class="basic label-container" style="fill:#E2EEEA !important;stroke:#1E6A5E !important;stroke-width:1.5px !important" x="-96.51042175292969" y="-24.75" width="193.02084350585938" height="49.5"></rect><g class="label" style="color:#123B34 !important" transform="translate(-66.51042175292969, -9.75)"><rect></rect><foreignobject width="133.02084350585938" height="19.5"><div style="color: rgb(18, 59, 52) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#123B34 !important" class="nodeLabel"><p>providerService · 8050</p></span></div></foreignobject></g></g><g class="node default data" id="claude-mermaid-0-flowchart-mongo-5" data-look="classic" transform="translate(1294.0052032470703, 52.125)"><path d="M0,13.332749970831873 a71.421875,13.332749970831873 0,0,0 142.84375,0 a71.421875,13.332749970831873 0,0,0 -142.84375,0 l0,47.83274997083187 a71.421875,13.332749970831873 0,0,0 142.84375,0 l0,-47.83274997083187" class="basic label-container outer-path" style="fill:#F5EBDA !important;stroke:#8F6420 !important;stroke-width:1.5px !important" transform="translate(-71.421875, -37.24912495624781)"></path><g class="label" style="color:#4E3712 !important" transform="translate(-63.921875, 0.25)"><rect></rect><foreignobject width="127.84375" height="19.5"><div style="color: rgb(78, 55, 18) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#4E3712 !important" class="nodeLabel"><p>MongoDB rs0 · 27017</p></span></div></foreignobject></g></g><g class="node default data" id="claude-mermaid-0-flowchart-redis-6" data-look="classic" transform="translate(1294.0052032470703, 170.21565628051758)"><path d="M0,10.394352656564356 a44.47916793823242,10.394352656564356 0,0,0 88.95833587646484,0 a44.47916793823242,10.394352656564356 0,0,0 -88.95833587646484,0 l0,44.89435265656436 a44.47916793823242,10.394352656564356 0,0,0 88.95833587646484,0 l0,-44.89435265656436" class="basic label-container outer-path" style="fill:#F5EBDA !important;stroke:#8F6420 !important;stroke-width:1.5px !important" transform="translate(-44.47916793823242, -32.84152898484653)"></path><g class="label" style="color:#4E3712 !important" transform="translate(-36.97916793823242, 0.25)"><rect></rect><foreignobject width="73.95833587646484" height="19.5"><div style="color: rgb(78, 55, 18) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#4E3712 !important" class="nodeLabel"><p>Redis · 6379</p></span></div></foreignobject></g></g><g class="node default data" id="claude-mermaid-0-flowchart-pg-7" data-look="classic" transform="translate(2033.4375076293945, 322.64453506469727)"><path d="M0,12.449799196787147 a62,12.449799196787147 0,0,0 124,0 a62,12.449799196787147 0,0,0 -124,0 l0,46.94979919678715 a62,12.449799196787147 0,0,0 124,0 l0,-46.94979919678715" class="basic label-container outer-path" style="fill:#F5EBDA !important;stroke:#8F6420 !important;stroke-width:1.5px !important" transform="translate(-62, -35.92469879518072)"></path><g class="label" style="color:#4E3712 !important" transform="translate(-54.5, 0.25)"><rect></rect><foreignobject width="109" height="19.5"><div style="color: rgb(78, 55, 18) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#4E3712 !important" class="nodeLabel"><p>PostgreSQL · 5432</p></span></div></foreignobject></g></g><g class="node default data" id="claude-mermaid-0-flowchart-kafka-8" data-look="classic" transform="translate(1294.0052032470703, 268.307186126709)"><polygon points="8.625,0 98.13542175292969,0 106.76042175292969,-17.25 98.13542175292969,-34.5 8.625,-34.5 0,-17.25" class="label-container" transform="translate(-53.380210876464844,17.25)" style="fill:#F5EBDA !important;stroke:#8F6420 !important;stroke-width:1.5px !important"></polygon><g class="label" style="color:#4E3712 !important" transform="translate(-37.255210876464844, -9.75)"><rect></rect><foreignobject width="74.51042175292969" height="19.5"><div style="color: rgb(78, 55, 18) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#4E3712 !important" class="nodeLabel"><p>Kafka · 9092</p></span></div></foreignobject></g></g><g class="node default ext" id="claude-mermaid-0-flowchart-bug-9" data-look="classic" transform="translate(2377.463554382324, 213.9698371887207)"><rect class="basic label-container" style="fill:#EAEBE6 !important;stroke:#89918A !important;stroke-width:1.3px !important;stroke-dasharray:5 3 !important" x="-107.47396087646484" y="-24.75" width="214.9479217529297" height="49.5"></rect><g class="label" style="color:#3A403B !important" transform="translate(-77.47396087646484, -9.75)"><rect></rect><foreignobject width="154.9479217529297" height="19.5"><div style="color: rgb(58, 64, 59) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#3A403B !important" class="nodeLabel"><p>Buggregator · 8000 · 1025</p></span></div></foreignobject></g></g></g></g></g><defs><filter id="claude-mermaid-0-drop-shadow" height="130%" width="130%"><fedropshadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></fedropshadow></filter></defs><defs><filter id="claude-mermaid-0-drop-shadow-small" height="150%" width="150%"><fedropshadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></fedropshadow></filter></defs><lineargradient id="claude-mermaid-0-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#9aa4b8" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(98.5714285714, 0%, 27.6470588235%)" stop-opacity="1"></stop></lineargradient></svg></div><pre class="mermaid" data-claude-mermaid-claimed="1" style="display: none;">%%{init: {"theme":"base","themeVariables":{"fontFamily":"IBM Plex Sans, sans-serif","fontSize":"13px","lineColor":"#6E7A72","primaryTextColor":"#151C1A","tertiaryColor":"#F2F3EE","background":"#F2F3EE","edgeLabelBackground":"#F2F3EE","textColor":"#151C1A","secondaryTextColor":"#151C1A","tertiaryTextColor":"#151C1A","clusterBkg":"#F2F3EE"},"flowchart":{"useMaxWidth":false,"curve":"basis","nodeSpacing":48,"rankSpacing":64}} }%%
+flowchart LR
+  classDef app  fill:#E2EEEA,stroke:#1E6A5E,stroke-width:1.5px,color:#123B34
+  classDef data fill:#F5EBDA,stroke:#8F6420,stroke-width:1.5px,color:#4E3712
+  classDef ext  fill:#EAEBE6,stroke:#89918A,stroke-width:1.3px,stroke-dasharray:5 3,color:#3A403B
+
+  sim["upstreamSimulator · 8035"]:::ext
+  gw["cloudGateway · 8030"]:::app
+  ing["ingestionService · 8040"]:::app
+  dis["dispatchService · 8045"]:::app
+  pro["providerService · 8050"]:::app
+
+  mongo[("MongoDB rs0 · 27017")]:::data
+  redis[("Redis · 6379")]:::data
+  pg[("PostgreSQL · 5432")]:::data
+  kafka{{"Kafka · 9092"}}:::data
+  bug["Buggregator · 8000 · 1025"]:::ext
+
+  sim --&gt;|"POST /notifications"| gw
+  gw --&gt;|"routed by service id"| ing
+  ing --&gt;|"notification + outbox,<br>one transaction"| mongo
+  ing --&gt;|"idempotency key, TTL"| redis
+  ing --&gt;|"outbox relay"| kafka
+  kafka --&gt;|"notification.{priority}"| dis
+  dis --&gt;|"Feign via Eureka"| pro
+  pro --&gt;|"SMTP · HTTP"| bug
+  dis --&gt;|"dead letter"| pg
+  dis --&gt;|"notification.delivery.status"| kafka
+  kafka -.-&gt;|"delivery outcome"| ing
+  ing -.-&gt;|"RECEIVED → SENT / FAILED"| mongo
+      </pre>
+    </div>
+
+    <div class="sheet-caption">
+      <span><b>Solid</b> forward path</span>
+      <span><b>Dashed</b> outcome feedback</span>
+      <span><b>Cylinder</b> datastore</span>
+      <span><b>Hexagon</b> broker</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Platform plane — what every service depends on</h2>
+    <p class="note">
+      These edges exist for all seven applications. Note the direction change at the bottom:
+      traces and logs are <em>pushed</em> to the collector, metrics are <em>pulled</em> from it.
+      That asymmetry is why a service that dies stops appearing in Tempo but still registers as
+      down in Prometheus.
+    </p>
+
+    <div class="sheet">
+      <div class="mermaid-diagram"><svg id="claude-mermaid-1" width="1512.791748046875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="288.2132263183594" viewBox="0 0 1512.791748046875 288.2132263183594" role="graphics-document document" aria-roledescription="flowchart-v2" style="max-width: none; width: 1513px; height: 288px;"><style>#claude-mermaid-1{font-size:13px;fill:#151C1A;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#claude-mermaid-1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#claude-mermaid-1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#claude-mermaid-1 .error-icon{fill:#F2F3EE;}#claude-mermaid-1 .error-text{fill:#151C1A;stroke:#151C1A;}#claude-mermaid-1 .edge-thickness-normal{stroke-width:1px;}#claude-mermaid-1 .edge-thickness-thick{stroke-width:3.5px;}#claude-mermaid-1 .edge-pattern-solid{stroke-dasharray:0;}#claude-mermaid-1 .edge-thickness-invisible{stroke-width:0;fill:none;}#claude-mermaid-1 .edge-pattern-dashed{stroke-dasharray:3;}#claude-mermaid-1 .edge-pattern-dotted{stroke-dasharray:2;}#claude-mermaid-1 .marker{fill:#6E7A72;stroke:#6E7A72;}#claude-mermaid-1 .marker.cross{stroke:#6E7A72;}#claude-mermaid-1 svg{font-size:13px;}#claude-mermaid-1 p{margin:0;}#claude-mermaid-1 .label{color:#151C1A;}#claude-mermaid-1 .cluster-label text{fill:#f2f3f5;}#claude-mermaid-1 .cluster-label span{color:#f2f3f5;}#claude-mermaid-1 .cluster-label span p{background-color:transparent;}#claude-mermaid-1 .label text,#claude-mermaid-1 span{fill:#151C1A;color:#151C1A;}#claude-mermaid-1 .node rect,#claude-mermaid-1 .node circle,#claude-mermaid-1 .node ellipse,#claude-mermaid-1 .node polygon,#claude-mermaid-1 .node path{fill:#262b34;stroke:#9aa4b8;stroke-width:1px;}#claude-mermaid-1 .rough-node .label text,#claude-mermaid-1 .node .label text,#claude-mermaid-1 .image-shape .label,#claude-mermaid-1 .icon-shape .label{text-anchor:middle;}#claude-mermaid-1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#claude-mermaid-1 .rough-node .label,#claude-mermaid-1 .node .label,#claude-mermaid-1 .image-shape .label,#claude-mermaid-1 .icon-shape .label{text-align:center;}#claude-mermaid-1 .node.clickable{cursor:pointer;}#claude-mermaid-1 .root .anchor path{fill:#6E7A72!important;stroke-width:0;stroke:#6E7A72;}#claude-mermaid-1 .arrowheadPath{fill:#0d0c11;}#claude-mermaid-1 .edgePath .path{stroke:#6E7A72;stroke-width:1px;}#claude-mermaid-1 .flowchart-link{stroke:#6E7A72;fill:none;}#claude-mermaid-1 .edgeLabel{background-color:#F2F3EE;text-align:center;}#claude-mermaid-1 .edgeLabel p{background-color:#F2F3EE;}#claude-mermaid-1 .edgeLabel rect{opacity:0.5;background-color:#F2F3EE;fill:#F2F3EE;}#claude-mermaid-1 .labelBkg{background-color:rgba(242, 243, 238, 0.5);}#claude-mermaid-1 .cluster rect{fill:#F2F3EE;stroke:#9aa4b8;stroke-width:1px;}#claude-mermaid-1 .cluster text{fill:#f2f3f5;}#claude-mermaid-1 .cluster span{color:#f2f3f5;}#claude-mermaid-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-size:12px;background:#F2F3EE;border:1px solid hsl(72, 0%, 100%);border-radius:2px;pointer-events:none;z-index:100;}#claude-mermaid-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#151C1A;}#claude-mermaid-1 rect.text{fill:none;stroke-width:0;}#claude-mermaid-1 .icon-shape,#claude-mermaid-1 .image-shape{background-color:#F2F3EE;text-align:center;}#claude-mermaid-1 .icon-shape p,#claude-mermaid-1 .image-shape p{background-color:#F2F3EE;padding:2px;}#claude-mermaid-1 .icon-shape .label rect,#claude-mermaid-1 .image-shape .label rect{opacity:0.5;background-color:#F2F3EE;fill:#F2F3EE;}#claude-mermaid-1 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#claude-mermaid-1 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#claude-mermaid-1 .node .neo-node{stroke:#9aa4b8;}#claude-mermaid-1 [data-look="neo"].node rect,#claude-mermaid-1 [data-look="neo"].cluster rect,#claude-mermaid-1 [data-look="neo"].node polygon{stroke:url(#claude-mermaid-1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-1 [data-look="neo"].swimlane.cluster rect{filter:none;}#claude-mermaid-1 [data-look="neo"].node path{stroke:url(#claude-mermaid-1-gradient);stroke-width:1px;}#claude-mermaid-1 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-1 [data-look="neo"].node .neo-line path{stroke:#9aa4b8;filter:none;}#claude-mermaid-1 [data-look="neo"].node circle{stroke:url(#claude-mermaid-1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-1 [data-look="neo"].node circle .state-start{fill:#000000;}#claude-mermaid-1 [data-look="neo"].icon-shape .icon{fill:url(#claude-mermaid-1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-1 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#claude-mermaid-1-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#claude-mermaid-1 .node rect,#claude-mermaid-1 .node circle,#claude-mermaid-1 .node polygon,#claude-mermaid-1 .node path,#claude-mermaid-1 .cluster rect{stroke-width:2px;}#claude-mermaid-1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#claude-mermaid-1 .app&gt;*{fill:rgb(226, 238, 234)!important;stroke:rgb(30, 106, 94)!important;stroke-width:1.5px!important;color:rgb(18, 59, 52)!important;}#claude-mermaid-1 .app span{fill:rgb(226, 238, 234)!important;stroke:rgb(30, 106, 94)!important;stroke-width:1.5px!important;color:rgb(18, 59, 52)!important;}#claude-mermaid-1 .app tspan{fill:rgb(18, 59, 52)!important;}#claude-mermaid-1 .plat&gt;*{fill:rgb(227, 234, 239)!important;stroke:rgb(63, 96, 118)!important;stroke-width:1.5px!important;color:rgb(34, 51, 63)!important;}#claude-mermaid-1 .plat span{fill:rgb(227, 234, 239)!important;stroke:rgb(63, 96, 118)!important;stroke-width:1.5px!important;color:rgb(34, 51, 63)!important;}#claude-mermaid-1 .plat tspan{fill:rgb(34, 51, 63)!important;}#claude-mermaid-1 .data&gt;*{fill:rgb(245, 235, 218)!important;stroke:rgb(143, 100, 32)!important;stroke-width:1.5px!important;color:rgb(78, 55, 18)!important;}#claude-mermaid-1 .data span{fill:rgb(245, 235, 218)!important;stroke:rgb(143, 100, 32)!important;stroke-width:1.5px!important;color:rgb(78, 55, 18)!important;}#claude-mermaid-1 .data tspan{fill:rgb(78, 55, 18)!important;}</style><g><marker id="claude-mermaid-1_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-1_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-1_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-1_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="claude-mermaid-1_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-1_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-1_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-1_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="claude-mermaid-1_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-1_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="claude-mermaid-1_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="claude-mermaid-1_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M211.622,111.5L239.63,98.375C267.639,85.25,323.655,59,373.25,45.875C422.845,32.75,466.019,32.75,487.606,32.75L509.193,32.75" id="claude-mermaid-1-L_apps_cfg_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_apps_cfg_0" data-points="W3sieCI6MjExLjYyMTg5NTY5NTM2NDIzLCJ5IjoxMTEuNX0seyJ4IjozNzkuNjcxODc1LCJ5IjozMi43NX0seyJ4Ijo1MTMuMTkyNzEwODc2NDY0OCwieSI6MzIuNzV9XQ==" data-look="classic" marker-end="url(#claude-mermaid-1_flowchart-v2-pointEnd)"></path><path d="M268,135.376L286.612,133.855C305.224,132.334,342.448,129.292,382.253,127.771C422.057,126.25,464.443,126.25,485.635,126.25L506.828,126.25" id="claude-mermaid-1-L_apps_eur_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_apps_eur_0" data-points="W3sieCI6MjY4LCJ5IjoxMzUuMzc2MDkxMDMyNTIwODZ9LHsieCI6Mzc5LjY3MTg3NSwieSI6MTI2LjI1fSx7IngiOjUxMC44MjgxMjUsInkiOjEyNi4yNX1d" data-look="classic" marker-end="url(#claude-mermaid-1_flowchart-v2-pointEnd)"></path><path d="M268,173.77L286.612,177.746C305.224,181.722,342.448,189.673,379.011,196.017C415.574,202.36,451.476,207.096,469.427,209.463L487.378,211.831" id="claude-mermaid-1-L_apps_lgtm_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_apps_lgtm_0" data-points="W3sieCI6MjY4LCJ5IjoxNzMuNzcwMDkxMTYxODI4NDJ9LHsieCI6Mzc5LjY3MTg3NSwieSI6MTk3LjYyNX0seyJ4Ijo0OTEuMzQzNzUsInkiOjIxMi4zNTM4MTc4MDU2NTA3NX1d" data-look="classic" marker-end="url(#claude-mermaid-1_flowchart-v2-pointEnd)"></path><path d="M491.344,240.124L472.732,241.645C454.12,243.166,416.896,246.208,372.077,236.533C327.258,226.857,274.844,204.464,248.638,193.268L222.431,182.072" id="claude-mermaid-1-L_lgtm_apps_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_lgtm_apps_0" data-points="W3sieCI6NDkxLjM0Mzc1LCJ5IjoyNDAuMTIzOTA4OTY3NDc5MTR9LHsieCI6Mzc5LjY3MTg3NSwieSI6MjQ5LjI1fSx7IngiOjIxOC43NTIzNDU2NDE2NDY0OSwieSI6MTgwLjV9XQ==" data-look="classic" marker-end="url(#claude-mermaid-1_flowchart-v2-pointEnd)"></path><path d="M751.344,229.5L760.944,229.5C770.545,229.5,789.747,229.5,808.281,229.5C826.816,229.5,844.684,229.5,853.618,229.5L862.552,229.5" id="claude-mermaid-1-L_lgtm_exp_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_lgtm_exp_0" data-points="W3sieCI6NzUxLjM0Mzc1LCJ5IjoyMjkuNX0seyJ4Ijo4MDguOTQ3OTE3OTM4MjMyNCwieSI6MjI5LjV9LHsieCI6ODY2LjU1MjA4NTg3NjQ2NDgsInkiOjIyOS41fV0=" data-look="classic" marker-end="url(#claude-mermaid-1_flowchart-v2-pointEnd)"></path><path d="M1126.552,229.5L1140.155,229.5C1153.759,229.5,1180.965,229.5,1207.505,229.5C1234.045,229.5,1259.918,229.5,1272.855,229.5L1285.792,229.5" id="claude-mermaid-1-L_exp_infra_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_exp_infra_0" data-points="W3sieCI6MTEyNi41NTIwODU4NzY0NjQ4LCJ5IjoyMjkuNX0seyJ4IjoxMjA4LjE3MTg3ODgxNDY5NzMsInkiOjIyOS41fSx7IngiOjEyODkuNzkxNjcxNzUyOTI5NywieSI6MjI5LjV9XQ==" data-look="classic" marker-end="url(#claude-mermaid-1_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(379.671875, 32.75)"><g class="label" data-id="L_apps_cfg_0" transform="translate(-49.109375, -9.75)"><foreignobject width="98.21875" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>config on startup</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(379.671875, 126.25)"><g class="label" data-id="L_apps_eur_0" transform="translate(-53.755210876464844, -9.75)"><foreignobject width="107.51042175292969" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>register + discover</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(378.91283, 197.46286)"><g class="label" data-id="L_apps_lgtm_0" transform="translate(-73.671875, -9.75)"><foreignobject width="147.34375" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>traces + logs, push :4318</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(379.671875, 249.25)"><g class="label" data-id="L_lgtm_apps_0" transform="translate(-35.53125, -9.75)"><foreignobject width="71.0625" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>scrape 90xx</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(808.9479179382324, 229.5)"><g class="label" data-id="L_lgtm_exp_0" transform="translate(-19.604167938232422, -9.75)"><foreignobject width="39.208335876464844" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>scrape</p></span></div></foreignobject></g></g><g class="edgeLabel" transform="translate(1208.1718788146973, 229.5)"><g class="label" data-id="L_exp_infra_0" transform="translate(-43.61979293823242, -9.75)"><foreignobject width="87.23958587646484" height="19.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>native protocol</p></span></div></foreignobject></g></g></g><g class="nodes"><g class="node default app" id="claude-mermaid-1-flowchart-apps-0" data-look="classic" transform="translate(138, 146)"><rect class="basic label-container" style="fill:#E2EEEA !important;stroke:#1E6A5E !important;stroke-width:1.5px !important" x="-130" y="-34.5" width="260" height="69"></rect><g class="label" style="color:#123B34 !important" transform="translate(-100, -19.5)"><rect></rect><foreignobject width="200" height="39"><div style="color: rgb(18, 59, 52) !important; display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#123B34 !important" class="nodeLabel"><p>Seven Spring applications — actuator on 90xx</p></span></div></foreignobject></g></g><g class="node default plat" id="claude-mermaid-1-flowchart-cfg-1" data-look="classic" transform="translate(621.34375, 32.75)"><rect class="basic label-container" style="fill:#E3EAEF !important;stroke:#3F6076 !important;stroke-width:1.5px !important" x="-108.15104675292969" y="-24.75" width="216.30209350585938" height="49.5"></rect><g class="label" style="color:#22333F !important" transform="translate(-78.15104675292969, -9.75)"><rect></rect><foreignobject width="156.30209350585938" height="19.5"><div style="color: rgb(34, 51, 63) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#22333F !important" class="nodeLabel"><p>configServer · 8020 · 9020</p></span></div></foreignobject></g></g><g class="node default plat" id="claude-mermaid-1-flowchart-eur-2" data-look="classic" transform="translate(621.34375, 126.25)"><rect class="basic label-container" style="fill:#E3EAEF !important;stroke:#3F6076 !important;stroke-width:1.5px !important" x="-110.515625" y="-24.75" width="221.03125" height="49.5"></rect><g class="label" style="color:#22333F !important" transform="translate(-80.515625, -9.75)"><rect></rect><foreignobject width="161.03125" height="19.5"><div style="color: rgb(34, 51, 63) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#22333F !important" class="nodeLabel"><p>eurekaServer · 8025 · 9025</p></span></div></foreignobject></g></g><g class="node default plat" id="claude-mermaid-1-flowchart-lgtm-3" data-look="classic" transform="translate(621.34375, 229.5)"><rect class="basic label-container" style="fill:#E3EAEF !important;stroke:#3F6076 !important;stroke-width:1.5px !important" x="-130" y="-34.5" width="260" height="69"></rect><g class="label" style="color:#22333F !important" transform="translate(-100, -19.5)"><rect></rect><foreignobject width="200" height="39"><div style="color: rgb(34, 51, 63) !important; display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#22333F !important" class="nodeLabel"><p>Grafana LGTM · 3000 — Tempo, Loki, Prometheus</p></span></div></foreignobject></g></g><g class="node default plat" id="claude-mermaid-1-flowchart-exp-4" data-look="classic" transform="translate(996.5520858764648, 229.5)"><rect class="basic label-container" style="fill:#E3EAEF !important;stroke:#3F6076 !important;stroke-width:1.5px !important" x="-130" y="-34.5" width="260" height="69"></rect><g class="label" style="color:#22333F !important" transform="translate(-100, -19.5)"><rect></rect><foreignobject width="200" height="39"><div style="color: rgb(34, 51, 63) !important; display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#22333F !important" class="nodeLabel"><p>Exporters — Kafka, Postgres, Mongo, Redis, cAdvisor</p></span></div></foreignobject></g></g><g class="node default data" id="claude-mermaid-1-flowchart-infra-5" data-look="classic" transform="translate(1397.2916717529297, 229.5)"><path d="M0,15.808823529411764 a107.5,15.808823529411764 0,0,0 215,0 a107.5,15.808823529411764 0,0,0 -215,0 l0,69.80882352941177 a107.5,15.808823529411764 0,0,0 215,0 l0,-69.80882352941177" class="basic label-container outer-path" style="fill:#F5EBDA !important;stroke:#8F6420 !important;stroke-width:1.5px !important" transform="translate(-107.5, -50.71323529411765)"></path><g class="label" style="color:#4E3712 !important" transform="translate(-100, -9.5)"><rect></rect><foreignobject width="200" height="39"><div style="color: rgb(78, 55, 18) !important; display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#4E3712 !important" class="nodeLabel"><p>Kafka, PostgreSQL, MongoDB, Redis</p></span></div></foreignobject></g></g></g></g></g><defs><filter id="claude-mermaid-1-drop-shadow" height="130%" width="130%"><fedropshadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></fedropshadow></filter></defs><defs><filter id="claude-mermaid-1-drop-shadow-small" height="150%" width="150%"><fedropshadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></fedropshadow></filter></defs><lineargradient id="claude-mermaid-1-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#9aa4b8" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(98.5714285714, 0%, 27.6470588235%)" stop-opacity="1"></stop></lineargradient></svg></div><pre class="mermaid" data-claude-mermaid-claimed="1" style="display: none;">%%{init: {"theme":"base","themeVariables":{"fontFamily":"IBM Plex Sans, sans-serif","fontSize":"13px","lineColor":"#6E7A72","primaryTextColor":"#151C1A","tertiaryColor":"#F2F3EE","background":"#F2F3EE","edgeLabelBackground":"#F2F3EE","textColor":"#151C1A","secondaryTextColor":"#151C1A","tertiaryTextColor":"#151C1A","clusterBkg":"#F2F3EE"},"flowchart":{"useMaxWidth":false,"curve":"basis","nodeSpacing":44,"rankSpacing":76}} }%%
+flowchart LR
+  classDef app  fill:#E2EEEA,stroke:#1E6A5E,stroke-width:1.5px,color:#123B34
+  classDef plat fill:#E3EAEF,stroke:#3F6076,stroke-width:1.5px,color:#22333F
+  classDef data fill:#F5EBDA,stroke:#8F6420,stroke-width:1.5px,color:#4E3712
+
+  apps["Seven Spring applications — actuator on 90xx"]:::app
+  cfg["configServer · 8020 · 9020"]:::plat
+  eur["eurekaServer · 8025 · 9025"]:::plat
+  lgtm["Grafana LGTM · 3000 — Tempo, Loki, Prometheus"]:::plat
+  exp["Exporters — Kafka, Postgres, Mongo, Redis, cAdvisor"]:::plat
+  infra[("Kafka, PostgreSQL, MongoDB, Redis")]:::data
+
+  apps --&gt;|"config on startup"| cfg
+  apps --&gt;|"register + discover"| eur
+  apps --&gt;|"traces + logs, push :4318"| lgtm
+  lgtm --&gt;|"scrape 90xx"| apps
+  lgtm --&gt;|"scrape"| exp
+  exp --&gt;|"native protocol"| infra
+      </pre>
+    </div>
+
+    <div class="sheet-caption">
+      <span><b>configServer</b> and <b>eurekaServer</b> are two of the seven</span>
+      <span>neither is a client of itself</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Port map</h2>
+    <p class="note">
+      Every service runs on the same host locally, so each needs its own pair. A service and its
+      actuator share their last two digits — <code>8040</code> pairs with <code>9040</code> — and
+      services sit five apart, in startup order.
+    </p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Tier</th>
+            <th>Service</th>
+            <th>Actuator</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">upstreamSimulator</td>
+            <td><span class="tier edge">edge</span></td>
+            <td class="num">8035</td>
+            <td class="num">9035</td>
+            <td class="role">Stands in for the external system that raises notifications</td>
+          </tr>
+          <tr>
+            <td class="name">cloudGateway</td>
+            <td><span class="tier edge">edge</span></td>
+            <td class="num">8030</td>
+            <td class="num">9030</td>
+            <td class="role">Single entry point; routes by service id from the registry</td>
+          </tr>
+          <tr>
+            <td class="name">ingestionService</td>
+            <td><span class="tier core">core</span></td>
+            <td class="num">8040</td>
+            <td class="num">9040</td>
+            <td class="role">Accepts and stores the request, owns the transactional outbox</td>
+          </tr>
+          <tr>
+            <td class="name">dispatchService</td>
+            <td><span class="tier core">core</span></td>
+            <td class="num">8045</td>
+            <td class="num">9045</td>
+            <td class="role">Consumes by priority, retries, dead-letters, reports the outcome</td>
+          </tr>
+          <tr>
+            <td class="name">providerService</td>
+            <td><span class="tier core">core</span></td>
+            <td class="num">8050</td>
+            <td class="num">9050</td>
+            <td class="role">Talks to the email and SMS gateways</td>
+          </tr>
+          <tr>
+            <td class="name">eurekaServer</td>
+            <td><span class="tier plat">platform</span></td>
+            <td class="num">8025</td>
+            <td class="num">9025</td>
+            <td class="role">Service registry</td>
+          </tr>
+          <tr>
+            <td class="name">configServer</td>
+            <td><span class="tier plat">platform</span></td>
+            <td class="num">8020</td>
+            <td class="num">9020</td>
+            <td class="role">Serves configuration from <code>config-repo-native</code></td>
+          </tr>
+          <tr>
+            <td class="name">MongoDB</td>
+            <td><span class="tier data">data</span></td>
+            <td class="num">27017</td>
+            <td class="num">—</td>
+            <td class="role">Single-node replica set <code>rs0</code>, for multi-document transactions</td>
+          </tr>
+          <tr>
+            <td class="name">PostgreSQL</td>
+            <td><span class="tier data">data</span></td>
+            <td class="num">5432</td>
+            <td class="num">—</td>
+            <td class="role">Dead-letter store</td>
+          </tr>
+          <tr>
+            <td class="name">Redis</td>
+            <td><span class="tier data">data</span></td>
+            <td class="num">6379</td>
+            <td class="num">—</td>
+            <td class="role">Idempotency keys, 24h locally / 72h deployed</td>
+          </tr>
+          <tr>
+            <td class="name">Kafka</td>
+            <td><span class="tier data">data</span></td>
+            <td class="num">9092</td>
+            <td class="num">—</td>
+            <td class="role">Five topics; partitions weighted 4/3/2/1 by priority</td>
+          </tr>
+          <tr>
+            <td class="name">Buggregator</td>
+            <td><span class="tier edge">edge</span></td>
+            <td class="num">8000 · 1025</td>
+            <td class="num">—</td>
+            <td class="role">Captures the email and SMS that would have been sent</td>
+          </tr>
+          <tr>
+            <td class="name">Grafana LGTM</td>
+            <td><span class="tier plat">platform</span></td>
+            <td class="num">3000 · 4318</td>
+            <td class="num">—</td>
+            <td class="role">Tempo, Loki, Prometheus and Grafana in one container</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rail">
+      <p>
+        <strong>The gaps are deliberate.</strong> Five between each service leaves room to slot a
+        new one in without renumbering its neighbours, and the whole block sits clear of the ports
+        the containers publish — Kafka on <code>9092</code>, Grafana on <code>3000</code>,
+        Buggregator on <code>8000</code>. The numbers ascend in startup order — configuration
+        <code>8020</code>, registry <code>8025</code>, edge <code>8030</code>/<code>8035</code>,
+        then the pipeline in the direction a notification travels — while the table below groups
+        by tier.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Design decisions worth knowing</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>The outbox, not a direct publish</h3>
+        <p>
+          ingestionService writes the notification and its outbox row in one Mongo transaction,
+          then a scheduled relay publishes to Kafka. A crash between the two leaves work to retry
+          rather than a notification nobody sent.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Priority as separate topics</h3>
+        <p>
+          Four topics rather than one with a priority field, so a flood of low-priority traffic cannot
+          delay a critical send. Partitions are the unit of consumer parallelism, so they are
+          weighted to match concurrency — 4/3/2/1 — and scale together via one unit setting.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Retry lives in the service</h3>
+        <p>
+          Delivery is retried on the consumer thread, which holds the partition and preserves
+          ordering. Binder-level retry is off — two uncoordinated retry loops around one call is
+          worse than one.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Trace context on the outbox row</h3>
+        <p>
+          The relay runs on a scheduler thread, long after the HTTP request ended. The W3C
+          traceparent is stored on the row and re-opened at publish time, so one trace spans the
+          gateway, both hops and the provider call.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Actuator on its own connector</h3>
+        <p>
+          Management endpoints are off the port the gateway routes to. Scrape traffic is also
+          excluded from observations, so Tempo and the RED panels describe real requests rather
+          than the monitoring system.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Config from a server, not the jar</h3>
+        <p>
+          Six services import their configuration from configServer at startup. configServer and
+          eurekaServer cannot be clients of themselves, so they carry their own copy of the shared
+          observability block.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Ports and topology verified against the running stack. Service ports are overridable with
+    <code>SERVER_PORT</code>, management ports with <code>MANAGEMENT_SERVER_PORT</code>.
+  </footer>
+
+</div>
+
+<script>
+  // The renderer emits an SVG with a viewBox but no intrinsic width, so CSS width:auto still
+  // resolves to 100% of the panel and a wide diagram gets scaled until its labels are unreadable.
+  // Pinning the width to the viewBox restores true size and lets .sheet scroll instead.
+  (function () {
+    function sizeToViewBox() {
+      document.querySelectorAll(".sheet svg").forEach(function (svg) {
+        var vb = svg.viewBox && svg.viewBox.baseVal;
+        if (!vb || !vb.width) return;
+        svg.style.maxWidth = "none";
+        svg.style.width = Math.round(vb.width) + "px";
+        svg.style.height = Math.round(vb.height) + "px";
+      });
+    }
+    sizeToViewBox();
+    // Rendering is asynchronous and we do not control when it finishes: watch for the SVG
+    // arriving, and stop polling once it has settled.
+    new MutationObserver(sizeToViewBox).observe(document.body, { childList: true, subtree: true });
+    var tries = 0;
+    var timer = setInterval(function () {
+      sizeToViewBox();
+      if (++tries > 40) clearInterval(timer);
+    }, 250);
+  })();
+</script>
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="./mermaid-11.16.1.min.js.download"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+
+</body></html>

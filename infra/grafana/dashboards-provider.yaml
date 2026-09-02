@@ -1,0 +1,19 @@
+# Mounted into the lgtm container's Grafana provisioning directory. The image already provisions
+# its own three dashboards from a sibling file; this adds ours in a separate folder so an image
+# upgrade cannot silently drop them.
+apiVersion: 1
+
+providers:
+  - name: comms-platform
+    orgId: 1
+    folder: comms-platform
+    type: file
+    disableDeletion: false
+    # False on purpose. Grafana's database lives on a persisted volume, so a dashboard edited in
+    # the browser would outlive the container and quietly shadow the file it came from - the next
+    # person to clone this repo would then see something different from what is committed.
+    # Provisioning re-applies these files on every start; edit the JSON, not the browser.
+    allowUiUpdates: false
+    options:
+      path: /etc/comms-dashboards
+      foldersFromFilesStructure: false

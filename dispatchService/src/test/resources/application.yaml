@@ -1,0 +1,39 @@
+# Test-only configuration.
+#
+# Test resources precede main resources on the test classpath, and Spring Boot loads only the
+# first classpath:/application.yaml it finds - so this file REPLACES (does not merge with)
+# src/main/resources/application.yaml, dropping the mandatory
+# "spring.config.import: configserver:..." that otherwise fails contextLoads when no config
+# server is running.
+
+spring:
+  application:
+    name: dispatchService
+  cloud:
+    config:
+      # With the config client on the classpath, Spring Cloud fails startup when no
+      # spring.config.import is set at all. Disabling the client skips that check.
+      enabled: false
+    stream:
+      function:
+        # No bindings, so the Kafka binder never reaches for a broker. The consumer beans are
+        # still created, which is what contextLoads actually verifies. (Relying on an empty
+        # function definition would only work while this module has several candidates.)
+        autodetect: false
+
+  datasource:
+    # In-memory, so the dead-letter JPA layer can start without a running Postgres.
+    url: jdbc:h2:mem:dlq;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false

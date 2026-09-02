@@ -42,21 +42,36 @@ public class OutboxRelay {
    * {@code @Scheduled} measures fixedDelay from method return, and these methods return the moment
    * they subscribe. Without these guards a slow pass would be re-entered every 5 seconds.
    */
+  /**
+   * fixedDelay only spaces runs apart; the first one still fires the moment the context is up.
+   * Tests push this out so the relay never reaches for a database they did not ask for.
+   */
+  private static final String INITIAL_DELAY = "${ingestion.outbox.initial-delay-ms:0}";
+
   private final AtomicBoolean pendingPassRunning = new AtomicBoolean();
 
   private final AtomicBoolean retryPassRunning = new AtomicBoolean();
 
-  @Scheduled(fixedDelay = 5000)
+  // Delays are configurable so the context test can push them past its own lifetime. Left as
+  // literals they fired 5s after startup, against a database the test has no business needing,
+  // and buried the build output in Mongo auth stack traces that no one was meant to act on.
+  @Scheduled(
+      fixedDelayString = "${ingestion.outbox.relay-delay-ms:5000}",
+      initialDelayString = INITIAL_DELAY)
   public void relayPendingEvents() {
     runPass("relay", pendingPassRunning, Set.of(OutboxEvent.Status.PENDING));
   }
 
-  @Scheduled(fixedDelay = 30000)
+  @Scheduled(
+      fixedDelayString = "${ingestion.outbox.retry-delay-ms:30000}",
+      initialDelayString = INITIAL_DELAY)
   public void retryFailedEvents() {
     runPass("retry", retryPassRunning, Set.of(OutboxEvent.Status.FAILED));
   }
 
-  @Scheduled(fixedDelay = 60000)
+  @Scheduled(
+      fixedDelayString = "${ingestion.outbox.reclaim-delay-ms:60000}",
+      initialDelayString = INITIAL_DELAY)
   public void reclaimStaleClaims() {
     outboxEventClaimer
         .reclaimStaleClaims(STALE_CLAIM_AFTER)

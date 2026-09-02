@@ -1,20 +1,16 @@
 https://claude.ai/chat/27fcdc18-d64a-4b62-a083-6addc649bc8e
 
-##### for docker mongo setup
-need to add replica set to support multi-document ACID transactions
-in docker compose : cherck docker compose mongo db section
+##### docker mongo setup
 
-clean mongo data folder, if created earlier, then start mongo
-then do exec
-or
- run command:
+Mongo runs as a single-node replica set (rs0) because the outbox write needs a multi-document
+ACID transaction. The replica set is initialised automatically by the "mongo-init" service in
+docker-compose.yml - it waits for mongod, calls rs.initiate() once, and is a no-op on every
+later start. There is nothing to do by hand.
+
+If you ever need to look at it yourself:
 
 docker exec -it comms-mongo mongosh "mongodb://admin:admin@localhost:27017/?authSource=admin"
-
-then run:
-
-rs.initiate({_id: "rs0", members: [{_id: 0, host: "comms-mongo:27017"}]})
-
+rs.status()
 
 ######
 Buggregator - mock mail+sms server
@@ -34,5 +30,5 @@ curl --request POST \
   "Body": "Hello from Bruno test!"
 }'
 
-
+https://claude.ai/code/artifact/3d8157a9-54bd-4ac8-9ed8-ce352971f7f7
 

@@ -1,0 +1,47 @@
+# Test-only configuration.
+#
+# Test resources precede main resources on the test classpath, and Spring Boot loads only the
+# first classpath:/application.yaml it finds - so this file REPLACES (does not merge with)
+# src/main/resources/application.yaml, dropping the mandatory
+# "spring.config.import: configserver:..." that otherwise fails contextLoads when no config
+# server is running.
+
+spring:
+  application:
+    name: ingestionService
+  cloud:
+    config:
+      enabled: false
+    stream:
+      function:
+        # ingestionService has exactly one Consumer bean, so Spring Cloud Stream auto-detects
+        # and binds it even with no function definition set - and the Kafka provisioner then
+        # retries against a dead broker for ~60s. Turning autodetect off leaves the bean in the
+        # context (which is what contextLoads checks) without creating a binding.
+        autodetect: false
+  data:
+    mongodb:
+      # MongoConfig reads this with getRequiredProperty, so it must be present. The reactive
+      # driver connects lazily, so nothing dials out while the context is loading.
+      # Fail fast instead of the 30s default: the merged OutboxRelay is scheduled, so it ticks
+      # during the context test and would otherwise block the build on server selection.
+      uri: mongodb://localhost:27017/comms_platform_test?serverSelectionTimeoutMS=500&connectTimeoutMS=500
+    redis:
+      host: localhost
+      port: 6379
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+ingestion:
+  outbox:
+    # Push every scheduled pass past the lifetime of the context test. The relay is a @Scheduled
+    # bean, so it ticks while contextLoads runs and tries to reach a Mongo the test never asked
+    # for - which passed, but printed authentication stack traces into every build.
+    initial-delay-ms: 3600000
+    relay-delay-ms: 3600000
+    retry-delay-ms: 3600000
+    reclaim-delay-ms: 3600000

@@ -2,13 +2,26 @@ spring:
   application:
     name: cloudGateway
   config:
-    import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:8020}
 
+
+server:
+  # Not the Boot default 8080: 8030 pairs with actuator on 9030, which keeps the gateway on the
+  # same numbering rule as everything else.
+  port: ${SERVER_PORT:8030}
+
+management:
+  server:
+    # Actuator on its own connector, off the port the gateway routes to. A service and its
+    # actuator share their last two digits - 80xx pairs with 90xx - and services sit five apart,
+    # so a new one slots in without renumbering. Every service runs on the same host locally, so
+    # each needs its own pair; a containerised profile can collapse them via MANAGEMENT_SERVER_PORT.
+    port: ${MANAGEMENT_SERVER_PORT:9030}
 
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8025/eureka/}
     fetch-registry: true
     register-with-eureka: true
   instance:

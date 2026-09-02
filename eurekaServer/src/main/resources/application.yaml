@@ -3,10 +3,61 @@ spring:
     name: eurekaServer
 
 server:
-  port: ${SERVER_PORT:8761}
+  port: ${SERVER_PORT:8025}
 
 eureka:
   client:
     # Standalone registry: it must not try to register with, or fetch from, itself.
     register-with-eureka: false
     fetch-registry: false
+  server:
+    # Off by default. Publishes eureka_server_instances{application,status}, which is the
+    # registry's own view of who is registered and in what state - a scrape can only tell you a
+    # process answers on a port, not that it is still registered or has gone OUT_OF_SERVICE.
+    metrics:
+      enabled: true
+
+management:
+  server:
+    # Actuator on its own connector, off the port the gateway routes to. A service and its
+    # actuator share their last two digits - 80xx pairs with 90xx - and services sit five apart,
+    # so a new one slots in without renumbering. Every service runs on the same host locally, so
+    # each needs its own pair; a containerised profile can collapse them via MANAGEMENT_SERVER_PORT.
+    port: ${MANAGEMENT_SERVER_PORT:9025}
+  # eurekaServer is not a config client either, so the shared observability block from
+  # config-repo-native/application.yaml never reaches it. Kept in step with configServer.
+  tracing:
+    enabled: true
+    propagation:
+      type: w3c
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    resource-attributes:
+      deployment.environment: local
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_TRACES_ENDPOINT:http://localhost:4318/v1/traces}
+          transport: http
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_LOGS_ENDPOINT:http://localhost:4318/v1/logs}
+          transport: http
+  # Metrics are scraped from /actuator/prometheus, not pushed - see infra/prometheus.yaml.
+  otlp:
+    metrics:
+      export:
+        enabled: false
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,metrics,prometheus
+
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},traceId=%X{traceId:-},spanId=%X{spanId:-}] "

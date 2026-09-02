@@ -1,0 +1,24 @@
+# Test-only configuration.
+#
+# This module's import is already "optional:configserver:...", so contextLoads passed without
+# this file - but only by chance: with a config server or Eureka actually running locally, the
+# test would silently pick up real remote configuration. Shadowing pins it to a fixed context.
+
+spring:
+  application:
+    name: upstreamSimulator
+  cloud:
+    config:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+comms-platform:
+  services:
+    # WebClientConfig reads this with @Value, so it has to be present. Nothing is called during
+    # a context test.
+    ingestionServiceUrl: http://localhost:8030/ingestionservice/notifications

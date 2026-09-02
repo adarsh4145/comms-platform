@@ -1,0 +1,18 @@
+# Name-compatibility aliases.
+#
+# Micrometer's Prometheus registry appends the base unit to a metric name; the OTLP registry does
+# not. Switching this platform from OTLP push to Prometheus scrape therefore renamed
+# jvm_classes_loaded -> jvm_classes_loaded_classes and jvm_threads_live -> jvm_threads_live_threads,
+# which silently emptied the Classes and Threads panels on the "JVM Overview (OpenTelemetry)"
+# dashboard that ships inside the lgtm image. jvm_memory_used_bytes survived because _bytes is
+# spelled the same either way.
+#
+# Recording the old names back is cheaper than forking a vendor dashboard we would then own.
+groups:
+  - name: micrometer-otlp-name-compat
+    interval: 30s
+    rules:
+      - record: jvm_classes_loaded
+        expr: jvm_classes_loaded_classes
+      - record: jvm_threads_live
+        expr: jvm_threads_live_threads

@@ -19,18 +19,23 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
-    entrypoint: >
-      bash -c '
-        if [ ! -f /keyfile/mongo-keyfile ]; then
-          openssl rand -base64 756 > /keyfile/mongo-keyfile
-          chmod 400 /keyfile/mongo-keyfile
-          chown mongodb:mongodb /keyfile/mongo-keyfile
-        fi
-        exec docker-entrypoint.sh mongod --replSet rs0 --bind_ip_all --keyFile /keyfile/mongo-keyfile
-      '
+    entrypoint: ["bash", "/scripts/mongo-entrypoint.sh"]
     volumes:
       - ./data/mongo_data:/data/db
       - mongo_keyfile:/keyfile
+      - ./scripts:/scripts:ro
+
+  mongo-init:
+    image: mongo:8.3.8
+    container_name: comms-mongo-init
+    networks:
+      - comms-net
+    depends_on:
+      - mongo
+    restart: "no"
+    entrypoint: ["bash", "/scripts/mongo-init.sh"]
+    volumes:
+      - ./scripts:/scripts:ro
 
   # mongo-express:
   #   image: mongo-express:latest
@@ -162,8 +167,31 @@ services:
     volumes:
       - ./data/kafka_data:/var/lib/kafka/data
 
+  # Topic partitions are weighted by priority - see scripts/kafka-init.sh. KAFKA_PARTITION_UNIT
+  # scales the whole set (1 gives 4/3/2/1, 2 gives 8/6/4/2); raise consumer concurrency with it or
+  # the extra partitions sit idle. KAFKA_RECREATE_TOPICS=true drops and rebuilds topics whose
+  # partition count no longer matches - destructive, development only.
+  # Topic partitions are weighted by priority - see scripts/kafka-init.sh. KAFKA_PARTITION_UNIT
+  # scales the whole set (1 gives 4/3/2/1, 2 gives 8/6/4/2); raise consumer concurrency with it,
+  # or the extra partitions just sit idle. KAFKA_RECREATE_TOPICS=true drops and rebuilds topics
+  # whose partition count no longer matches - destructive, development only.
+  kafka-init:
+    image: apache/kafka:4.3.1
+    container_name: comms-kafka-init
+    networks:
+      - comms-net
+    depends_on:
+      - kafka
+    restart: "no"
+    environment:
+      KAFKA_PARTITION_UNIT: ${KAFKA_PARTITION_UNIT:-1}
+      KAFKA_RECREATE_TOPICS: ${KAFKA_RECREATE_TOPICS:-false}
+    entrypoint: ["bash", "/scripts/kafka-init.sh"]
+    volumes:
+      - ./scripts:/scripts:ro
+
   kafka-ui:
-    image: ghcr.io/kafbat/kafka-ui:latest
+    image: ghcr.io/kafbat/kafka-ui:v1.5.0
 #    image: provectuslabs/kafka-ui:v0.7.2
     container_name: comms-kafka-ui
     networks:
@@ -193,7 +221,7 @@ services:
 #      - ./data/mailpit_data:/data
 
   buggregator:
-    image: ghcr.io/buggregator/server:latest
+    image: ghcr.io/buggregator/server:2.4.1
     container_name: comms-buggregator
     networks:
       comms-net:
@@ -204,9 +232,10 @@ services:
 
 
   # Traces (Tempo) + logs (Loki) + metrics (Prometheus) + Grafana, in one dev container.
-  # Services push OTLP/HTTP to :4318; you read it back in Grafana on :3000.
+  # Traces and logs are pushed here over OTLP/HTTP on :4318; metrics are pulled the other way,
+  # by the scrape jobs in ./prometheus.yaml. Read it all back in Grafana on :3000.
   lgtm:
-    image: grafana/otel-lgtm:latest
+    image: grafana/otel-lgtm:0.32.0
     container_name: comms-lgtm
     networks:
       comms-net:
@@ -219,8 +248,96 @@ services:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
-      # Storage is intentionally ephemeral — local telemetry is disposable, and bind-mounting
-      # Tempo/Loki data on Windows reliably trips over file permissions.
+      # Retention. Each component wants it in its own dialect, so it is spelled out three times
+      # rather than hidden behind an alias. One day locally; the deployed profile can raise it.
+      PROMETHEUS_EXTRA_ARGS: --storage.tsdb.retention.time=${TELEMETRY_RETENTION:-24h}
+      LOKI_EXTRA_ARGS: -compactor.retention-enabled=true -compactor.delete-request-store=filesystem -store.retention=${TELEMETRY_RETENTION:-24h}
+      TEMPO_EXTRA_ARGS: -backend-scheduler.provider.work.compaction.block-retention=${TELEMETRY_RETENTION:-24h} -backend-worker.compaction.block-retention=${TELEMETRY_RETENTION:-24h}
+    extra_hosts:
+      # The Spring apps run on the host, not in this network, and Prometheus has to scrape them.
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Bind-mounted alongside every other service data directory rather than a named volume,
+      # so all local state lives in one place you can see and clear. This is also what makes the
+      # retention settings above meaningful - before it, every restart wiped the lot anyway.
+      #
+      # Note it persists Grafana itself too: the image puts GF_PATHS_DATA under /data, so starred
+      # dashboards and annotations survive. Provisioned dashboards stay file-owned regardless.
+      - ./data/lgtm:/data
+      - ./prometheus.yaml:/otel-lgtm/prometheus.yaml:ro
+      - ./prometheus-rules.yaml:/otel-lgtm/comms-rules.yaml:ro
+      - ./grafana/dashboards:/etc/comms-dashboards:ro
+      - ./grafana/dashboards-provider.yaml:/otel-lgtm/grafana/conf/provisioning/dashboards/comms-platform.yaml:ro
+      - ./grafana/datasources.yaml:/otel-lgtm/grafana/conf/provisioning/datasources/grafana-datasources.yaml:ro
+
+  # Exporters. Each one turns a server that speaks its own protocol into a Prometheus endpoint,
+  # and each has a community dashboard provisioned against it under ./grafana/dashboards.
+
+  kafka-exporter:
+    image: danielqsj/kafka-exporter:v1.9.0
+    container_name: comms-kafka-exporter
+    # exporters race their server on a cold start and most of them exit rather than retry
+    restart: unless-stopped
+    networks:
+      comms-net:
+        ipv4_address: 172.28.0.80
+    command: ["--kafka.server=comms-kafka:29092"]
+    depends_on:
+      - kafka
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1
+    container_name: comms-postgres-exporter
+    # exporters race their server on a cold start and most of them exit rather than retry
+    restart: unless-stopped
+    networks:
+      comms-net:
+        ipv4_address: 172.28.0.81
+    environment:
+      DATA_SOURCE_NAME: postgresql://postgres:postgres@comms-postgres:5432/comms_platform?sslmode=disable
+    depends_on:
+      - postgres
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.44
+    container_name: comms-mongodb-exporter
+    # exporters race their server on a cold start and most of them exit rather than retry
+    restart: unless-stopped
+    networks:
+      comms-net:
+        ipv4_address: 172.28.0.82
+    # compatible-mode emits the legacy mongodb_mongod_* metric names the community dashboards
+    # were written against; without it every panel on dashboard 2583 is empty.
+    command: ["--mongodb.uri=mongodb://admin:admin@comms-mongo:27017/?authSource=admin", "--collect-all", "--compatible-mode"]
+    depends_on:
+      - mongo
+
+  redis-exporter:
+    image: oliver006/redis_exporter:v1.90.0
+    container_name: comms-redis-exporter
+    # exporters race their server on a cold start and most of them exit rather than retry
+    restart: unless-stopped
+    networks:
+      comms-net:
+        ipv4_address: 172.28.0.83
+    environment:
+      REDIS_ADDR: redis://comms-redis:6379
+    depends_on:
+      - redis
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
+    container_name: comms-cadvisor
+    networks:
+      comms-net:
+        ipv4_address: 172.28.0.84
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
 
 volumes:
   mongo_keyfile:

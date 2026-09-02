@@ -20,11 +20,27 @@ management:
           # Container/K8s DNS name of the collector; overridable per environment.
           endpoint: ${OTEL_TRACES_ENDPOINT:http://comms-lgtm:4318/v1/traces}
           transport: http
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_LOGS_ENDPOINT:http://comms-lgtm:4318/v1/logs}
+          transport: http
+  # Metrics are scraped from /actuator/prometheus instead of pushed over OTLP - every
+  # community Grafana dashboard is written against the Prometheus registry naming, and the
+  # OTLP registry emits different metric names (http_server_requests_milliseconds_*).
+  otlp:
+    metrics:
+      export:
+        enabled: false
+  metrics:
+    tags:
+      # dashboards 4701/12900/19004 all pivot on an "application" label
+      application: ${spring.application.name}
   endpoints:
     web:
       exposure:
-        include: health,info,env,metrics
+        include: health,info,env,metrics,prometheus
 
 logging:
   pattern:
-    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
+    correlation: "[${spring.application.name:},traceId=%X{traceId:-},spanId=%X{spanId:-}] "

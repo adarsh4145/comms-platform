@@ -75,6 +75,13 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- test-only: contextLoads needs a DataSource now that the DLQ uses JPA, and it has no
+		     business requiring a running Postgres -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>io.github.adarsh4145</groupId>

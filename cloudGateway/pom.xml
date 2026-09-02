@@ -28,6 +28,13 @@
 	<properties>
 	</properties>
 	<dependencies>
+		<!-- shared module: brings the platform-wide logback config (console + OTLP appender)
+		     so gateway logs land in Loki alongside every other service -->
+		<dependency>
+			<groupId>io.github.adarsh4145</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
+
 		<!-- distributed tracing: micrometer-tracing OTel bridge + OTLP exporter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

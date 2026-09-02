@@ -28,6 +28,23 @@
 	<properties>
 	</properties>
 	<dependencies>
+		<!-- observability: core carries the shared logback config (console + OTLP appender),
+		     the starter brings the tracing bridge and OTLP exporters, actuator exposes the
+		     Prometheus scrape endpoint. Without these the infra servers were the two blind
+		     spots in Grafana. -->
+		<dependency>
+			<groupId>io.github.adarsh4145</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-opentelemetry</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>

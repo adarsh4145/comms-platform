@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Lives in core so every service that depends on it gets the same logging setup from one file.
+  A service that needs something different can still win by putting its own logback-spring.xml in
+  its src/main/resources - its classpath entry comes first.
+
+  The only reason this file exists is the OTLP appender. Spring Boot autoconfigures the OTLP log
+  *exporter* but nothing feeds it: Logback has no idea the OpenTelemetry SDK exists until this
+  appender is attached to the root logger. Without it, Loki stays empty while Tempo fills up.
+
+  CONSOLE and the INFO root level are copied from Boot's own base.xml so nothing else changes -
+  logging.pattern.* and logging.level.* still work exactly as before.
+-->
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+  <appender name="OTLP"
+            class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">
+    <!-- Adds thread name/id, so a log line in Loki still says which thread wrote it. -->
+    <captureExperimentalAttributes>true</captureExperimentalAttributes>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="OTLP"/>
+  </root>
+</configuration>

@@ -1,6 +1,6 @@
 
 server:
-  port: 8888
+  port: 8020
 
 spring:
   application:
@@ -11,14 +11,54 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8025/eureka/}
     fetch-registry: true
     register-with-eureka: true
   instance:
     prefer-ip-address: true
 
 management:
+  server:
+    # Actuator on its own connector, off the port the gateway routes to. A service and its
+    # actuator share their last two digits - 80xx pairs with 90xx - and services sit five apart,
+    # so a new one slots in without renumbering. Every service runs on the same host locally, so
+    # each needs its own pair; a containerised profile can collapse them via MANAGEMENT_SERVER_PORT.
+    port: ${MANAGEMENT_SERVER_PORT:9020}
   endpoints:
     web:
       exposure:
-        include: health,info,env
+        include: health,info,env,metrics,prometheus
+  # configServer serves config-repo-*/application.yaml to everyone else but is not a client of
+  # itself, so the shared observability block does not reach it - it has to be repeated here.
+  # Same for eurekaServer. Keep the two in step with config-repo-native/application.yaml.
+  tracing:
+    enabled: true
+    propagation:
+      type: w3c
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    resource-attributes:
+      deployment.environment: local
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_TRACES_ENDPOINT:http://localhost:4318/v1/traces}
+          transport: http
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_LOGS_ENDPOINT:http://localhost:4318/v1/logs}
+          transport: http
+  # Metrics are scraped from /actuator/prometheus, not pushed - see infra/prometheus.yaml.
+  otlp:
+    metrics:
+      export:
+        enabled: false
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},traceId=%X{traceId:-},spanId=%X{spanId:-}] "

@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8085/provider/send
+  url: http://localhost:8050/provider/send
   headers:
     - name: Content-Type
       value: application/json

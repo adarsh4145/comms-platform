@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8082/simulate/notification
+  url: http://localhost:8035/simulate/notification
   body:
     type: json
     data: |-

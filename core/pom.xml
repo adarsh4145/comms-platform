@@ -61,6 +61,28 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-tracing</artifactId>
 		</dependency>
+		<!-- Routes Logback events into the OTel SDK so they reach Loki with the span context
+		     attached. Pinned to the instrumentation release built against opentelemetry-api
+		     1.55.0, which is the version spring-boot-dependencies manages. -->
+		<dependency>
+			<groupId>io.opentelemetry.instrumentation</groupId>
+			<artifactId>opentelemetry-logback-appender-1.0</artifactId>
+			<version>2.21.0-alpha</version>
+		</dependency>
+		<!-- metrics are scraped from /actuator/prometheus rather than pushed over OTLP: the
+		     community Grafana dashboards are all written against this registry's naming -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+		<!-- compile-only: CoreObservationAutoConfiguration needs the servlet request type to filter
+		     actuator observations in configServer/eurekaServer. Optional so it never reaches the
+		     reactive services, which have no servlet stack at all. -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- optional: only the edge services have webflux, and the shared 
 		     below is conditional on it being present -->
 		<dependency>

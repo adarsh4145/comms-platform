@@ -11,7 +11,7 @@ Services must start in this order because each one depends on something the prev
 
 **How it works:** Runs standalone (`register-with-eureka: false`, `fetch-registry: false`) — it's the one service designed to have zero external dependencies, so it can always come up first. Every other service's `eureka.client.service-url.defaultZone` points at it.
 
-**Port:** `8761`
+**Port:** `8025`
 
 ---
 
@@ -22,7 +22,7 @@ Services must start in this order because each one depends on something the prev
 
 **How it works:** Backed by two profiles — `native` (reads from local disk, `config-repo-native/`, used when running via IntelliJ) and `github` (reads from the pushed GitHub repo, `config-repo-github/`, used once services are containerized). Registers with Eureka using a locally-hardcoded Eureka URL, since it can't fetch that from itself.
 
-**Port:** `8888`
+**Port:** `8020`
 
 ---
 
@@ -33,7 +33,7 @@ Services must start in this order because each one depends on something the prev
 
 **How it works:** Reactive (WebFlux/Netty-based). `spring.cloud.gateway.server.webflux.discovery.locator.enabled: true` auto-generates a route per registered service (lowercased). A `Retry` filter with `CacheRequestBody` absorbs brief unavailability (e.g. a service still registering with Eureka) by retrying up to 5 times with backoff before giving up.
 
-**Port:** `8080`
+**Port:** `8030`
 
 ---
 
@@ -44,7 +44,7 @@ Services must start in this order because each one depends on something the prev
 
 **Status:** Not yet wired to actually call ingestionService — see the pending items list. Right now it only proves it can run inside the ecosystem (Eureka + Config Server registered).
 
-**Port:** `8082`
+**Port:** `8035`
 
 ---
 
@@ -58,7 +58,7 @@ Services must start in this order because each one depends on something the prev
 - If new: saves a `NotificationRequest` **and** an `OutboxEvent` in a single MongoDB transaction (the transactional outbox pattern) — so the two writes either both happen or neither does.
 - A scheduled relay (`OutboxRelay`, every 5s) reads `PENDING` outbox events and publishes them to the correct priority-based Kafka topic (`notification.critical/high/medium/low`) via Spring Cloud Stream's `StreamBridge`.
 
-**Port:** `8083`
+**Port:** `8040`
 
 ---
 
@@ -69,7 +69,7 @@ Services must start in this order because each one depends on something the prev
 
 **How it works:** Four separate `Consumer<String>` functions, one per priority topic, each with its own concurrency setting (`critical: 4, high: 3, medium: 2, low: 1`) — higher-priority topics get more parallel consumer threads. Each consumed event is parsed and sent to providerService via a Feign client, resolved through Eureka.
 
-**Port:** `8084`
+**Port:** `8045`
 
 ---
 
@@ -80,7 +80,7 @@ Services must start in this order because each one depends on something the prev
 
 **How it works:** `POST /provider/send` — rolls a random delay and failure chance (config-driven, currently 20%) before attempting delivery. On success, sends real SMTP mail or a real HTTP POST mimicking Twilio's API format, both landing in Buggregator.
 
-**Port:** `8085`
+**Port:** `8050`
 
 ---
 
@@ -100,7 +100,7 @@ This starts MongoDB (replica set), PostgreSQL, Redis, Kafka (KRaft), DBGate, kaf
 
 ### Step 2 — Start services, in order
 ```
-eurekaServer   → wait for it to be reachable at :8761
+eurekaServer   → wait for it to be reachable at :8025
 configServer   → wait for it to register in Eureka
 cloudGateway   → wait for it to register in Eureka
 ingestionService
@@ -108,11 +108,11 @@ dispatchService
 providerService
 upstreamSimulator
 ```
-Each can be started from IntelliJ's run configurations. Confirm each one appears as `UP` in the Eureka dashboard (`http://localhost:8761`) before moving to the next — while not strictly required for every service, it removes a variable when debugging.
+Each can be started from IntelliJ's run configurations. Confirm each one appears as `UP` in the Eureka dashboard (`http://localhost:8025`) before moving to the next — while not strictly required for every service, it removes a variable when debugging.
 
 ### Step 3 — Confirm the pipeline works
 ```bash
-curl -X POST http://localhost:8080/ingestionservice/notifications \
+curl -X POST http://localhost:8030/ingestionservice/notifications \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: manual-test-001" \
   -d '{"recipient": "test@example.com", "message": "Setup check", "priority": "HIGH"}'
@@ -133,7 +133,7 @@ If all four show up, the whole system is working end to end.
 
 **ingestionService — create a notification**
 ```bash
-POST http://localhost:8083/notifications
+POST http://localhost:8040/notifications
 Content-Type: application/json
 Idempotency-Key: order-4471-notify
 
@@ -157,7 +157,7 @@ Response (`201 Created`):
 
 **providerService — send directly (bypasses Kafka entirely — for testing the provider in isolation)**
 ```bash
-POST http://localhost:8085/provider/send
+POST http://localhost:8050/provider/send
 Content-Type: application/json
 
 {
@@ -185,7 +185,7 @@ This is the intended full round trip once upstreamSimulator is wired to actually
 
 **Hop 1 — Caller triggers upstreamSimulator**
 ```bash
-POST http://localhost:8080/upstreamsimulator/simulate/notification
+POST http://localhost:8030/upstreamsimulator/simulate/notification
 Content-Type: application/json
 
 {
@@ -198,7 +198,7 @@ Content-Type: application/json
 **Hop 2 — upstreamSimulator forwards to ingestionService, through the Gateway**
 *(the piece still to be built — upstreamSimulator would make this call itself)*
 ```bash
-POST http://localhost:8080/ingestionservice/notifications
+POST http://localhost:8030/ingestionservice/notifications
 Idempotency-Key: <generated per upstream event>
 Content-Type: application/json
 
@@ -363,7 +363,7 @@ dispatchService publishes a `NotificationDeliveryEvent` to **`notification.deliv
 
 When the attempts are exhausted the event lands in the `dead_letter_event` table with the verbatim payload, the **trace id**, the failure reason and the stack trace. An unparseable payload skips the retries entirely (`UNPARSEABLE_PAYLOAD`) — a poison pill does not get better on the fourth attempt.
 
-| Endpoint (dispatchService, `:8084`) | Purpose |
+| Endpoint (dispatchService, `:8045`) | Purpose |
 |---|---|
 | `GET /dlq?status=NEW&limit=50` | Recent dead letters |
 | `GET /dlq/by-trace/{traceId}` | Everything dead-lettered in one trace |
@@ -390,3 +390,6 @@ docker build --build-arg MODULE=ingestionService -t comms-platform/ingestion-ser
 Images carry no environment config. Point them at their dependencies at run time with `CONFIG_SERVER_URL`, `EUREKA_SERVER_URL`, and (for upstreamSimulator) `GATEWAY_URL`; everything else comes from the config server, where `config-repo-github` now addresses the compose DNS names with per-value env overrides.
 
 > `spotless:apply` is bound to `process-sources`, so every build normalises formatting. That is why a build touches files you did not edit.
+
+
+https://claude.ai/code/artifact/3d8157a9-54bd-4ac8-9ed8-ce352971f7f7

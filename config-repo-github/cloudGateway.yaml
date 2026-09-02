@@ -4,7 +4,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,env,gateway
+        include: health,info,env,metrics,prometheus,gateway
     env:
       show-values: ALWAYS
   endpoint:

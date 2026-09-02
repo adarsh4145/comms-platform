@@ -84,21 +84,35 @@
     </pluginManagement>
 
     <plugins>
+      <!-- The compiler would fail on an older JDK anyway, but with "invalid target release: 25",
+           which sends people hunting through the poms. Fail first, with the actual instruction. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.6.3</version>
+        <executions>
+          <execution>
+            <id>require-java-25</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[${java.version},)</version>
+                  <message>This project needs JDK ${java.version} or newer. Point JAVA_HOME (and IntelliJ's project SDK) at one.</message>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <!-- Declared with no execution before, so it only ran when invoked by hand - which is
-             why part of the tree is google-java-format and part of it is not. Bound to apply
-             (not check) so the build normalises formatting instead of failing on it. -->
-        <executions>
-          <execution>
-            <id>spotless-apply</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>apply</goal>
-            </goals>
-          </execution>
-        </executions>
+        <!-- Intentionally NOT bound to a lifecycle phase. Binding apply to process-sources made
+             every build reformat files that had no code change in them, which buried real edits
+             in unreviewable diffs. Run "mvn spotless:apply" by hand when you actually want it. -->
       </plugin>
     </plugins>
 
